@@ -11,7 +11,11 @@ public class SpliteGenerator : MonoBehaviour
 
     public float destoryTime = 5f;
     public float yMax = 6000;
-    public float speed = .5f;
+
+    [Title("Movement")]
+    public float speed = 2.5f;
+    public float speed_middlm = 2.5f;
+    public float speed_fast = 3f;
 
     public ItemManager.SpitePosition spitePosition;
 
@@ -43,11 +47,11 @@ public class SpliteGenerator : MonoBehaviour
     public void MoveSpite()
     {
         Vector3 v = transform.localPosition;
-        transform.localPosition = new Vector3(v.x, Mathf.MoveTowards(v.y, -(Screen.height + 2000), speed), v.z);
+        transform.localPosition = new Vector3(v.x, Mathf.MoveTowards(v.y, -(Screen.height + 2500), speed), v.z);
 
         if (v.y < -(Screen.height + 1200))
         {
-            //ItemManager.Instance.DestorySpite();
+            spitePosition.handleDestory();
             //DestoryGroup();
         }
     }
@@ -57,9 +61,9 @@ public class SpliteGenerator : MonoBehaviour
     {
         for (int i = 1; i <= spiteNum; i++)
         {
-            var objTransform = CreateChild();
-
+            CreateChild();
         }
+
         LayoutRebuilder.ForceRebuildLayoutImmediate(transform as RectTransform);
 
         var spiteRect = GetComponent<RectTransform>().rect;
@@ -67,6 +71,9 @@ public class SpliteGenerator : MonoBehaviour
         spitePosition.self = transform;
 
         spitePosition.spiteGroupSize = spiteRect.size;
+
+        Debug.Log(spitePosition.spiteGroupSize);
+
     }
 
     public void DestoryGroup()

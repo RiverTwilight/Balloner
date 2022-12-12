@@ -5,45 +5,37 @@ using UnityEngine.UI;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using UnityEngine.SceneManagement;
+using Sirenix.OdinInspector;
 
 public class Player : MonoBehaviour
 {
-
-    private Touch theTouch;
+    [Title("Touch")]
+    [ReadOnly] private Touch theTouch;
     private Vector2 touchStartPosition, touchEndPosition;
 
     public Text currentScore;
 
-    public float speed = 2f;
-    public float speed_middlm = 2.5f;
-    public float speed_fast = 3f;
+
 
     public GameObject ballon;
     public Bounds ballonBounds;
-    public ItemManager itemManager;
 
     async void Start()
     {
         var rect = GetComponent<RectTransform>().rect;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        Movement();
         CheckCollidation();
+        Movement();
     }
 
     void CheckCollidation()
     {
-        var rect = GetComponent<RectTransform>().rect;
+        var transform = GetComponent<RectTransform>();
 
-        //ballonBounds = new Bounds(
-        //    transform.position,
-        //    rect.size
-        //); 
-
-        ballonBounds = GetComponent<BoxCollider2D>().bounds;
+        ballonBounds = new Bounds(transform.position * 2, transform.rect.size);
 
         Debug.Log($"Ballon [center: {ballonBounds.center} size: {ballonBounds.size}]");
 
@@ -51,12 +43,13 @@ public class Player : MonoBehaviour
         {
             if (spite == null) { Debug.Log("ASDFASDF"); return; }
             var spiteBounds = spite.CreateBounds();
+            var actualSpiteBounds = new Bounds(spiteBounds.center * 2, spiteBounds.size);
             Debug.Log($"Spite{spite} [center: {spiteBounds.center} size: {spiteBounds.size}]");
-            if (spiteBounds.Intersects(ballonBounds))
+            if (ballonBounds.Intersects(actualSpiteBounds))
             {
                 Debug.Log("Fxxxxk");
-                //ItemManager.Instance.SpitesQueue.Clear();
-                //SceneManager.LoadScene("SampleScene");
+                ItemManager.Instance.SpitesQueue.Clear();
+                SceneManager.LoadScene("Main");
             }
         });
     }
@@ -65,7 +58,6 @@ public class Player : MonoBehaviour
     {
         if (Input.touchCount > 0)
         {
-
             theTouch = Input.GetTouch(0);
             if (theTouch.phase == TouchPhase.Began)
             {

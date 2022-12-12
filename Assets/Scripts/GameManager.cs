@@ -1,11 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Sirenix.OdinInspector;
 using Cysharp.Threading.Tasks;
 
 public class GameManager : MonoBehaviour
 {
     private ItemManager ItemManager;
+    public enum GameStatusSet
+    {
+        Playing,
+        Initialized
+    };
+
+    public GameStatusSet gameStatus;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,16 +27,16 @@ public class GameManager : MonoBehaviour
 
     //}
 
-    public void StartGame()
+    async public void StartGame()
     {
-        ItemManager.SpawnSpite();
+        gameStatus = GameStatusSet.Playing;
 
-        //while (true)
-        //{
-        //    ItemManager.SpawnSpite();
-        //    //ItemManager.SpawnCloud();
-        //    //ItemManager.SpawnCoin();
-        //    await UniTask.Delay(8000);
-        //}
+        while (true)
+        {
+            ItemManager.SpawnSpite();
+            ItemManager.SpawnCloud();
+            //ItemManager.SpawnCoin();
+            await UniTask.Delay(10000);
+        }
     }
 }

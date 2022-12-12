@@ -60,7 +60,7 @@ public class ItemManager : SingletonMonoBehavior<ItemManager>
     {
         float randomX = Random.Range(0, screenWidth);
 
-        var spiteObj = Instantiate(Spite_Prefab, new Vector3(randomX, 3000, 0), Quaternion.identity, SpiteContainer.transform);
+        var spiteObj = Instantiate(Spite_Prefab, new Vector3(randomX, 2500, 0), Quaternion.identity, SpiteContainer.transform);
 
         await UniTask.DelayFrame(0);
 
@@ -70,12 +70,15 @@ public class ItemManager : SingletonMonoBehavior<ItemManager>
         {
             return;
         }
-        SpitesQueue.Add(_spiteObj.spitePosition);
-    }
 
-    public void DestorySpite()
-    {
-        SpitesQueue.RemoveAt(0);
+        var originalDestory = _spiteObj.spitePosition.handleDestory;
+
+        _spiteObj.spitePosition.handleDestory = () => {
+            originalDestory();
+            SpitesQueue.RemoveAt(0);
+        };
+
+        SpitesQueue.Add(_spiteObj.spitePosition);
     }
 
     [Button]

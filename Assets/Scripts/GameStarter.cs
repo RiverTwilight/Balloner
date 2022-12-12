@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using Cysharp.Threading.Tasks;
+using Sirenix.OdinInspector;
 
 public class GameStarter : MonoBehaviour
 {
-
     public CanvasGroup UIcanvasGroup;
-    //public Canvas canvas;
+    
+    [Title("Game Objects")]
     public RectTransform Ballon;
     public CanvasGroup Score;
     public CanvasGroup HintText;
@@ -21,11 +22,14 @@ public class GameStarter : MonoBehaviour
     {
         GetComponent<InteractableMonoBehavior>().onPointerClick.AddListener((eD) =>
         {
-            UIcanvasGroup.DOFade(0, 0.5f);
-            Score.DOFade(1, 0.5f);
-            Ballon.DOAnchorPosY(-1899, ballonAppearDelay).SetEase(Ease.InCubic);
-            Context.GetComponent<GameManager>().StartGame();
-            shakeHintText = false;
+            if (Context.GetComponent<GameManager>().gameStatus == GameManager.GameStatusSet.Initialized)
+            {
+                UIcanvasGroup.DOFade(0, 0.5f);
+                Score.DOFade(1, 0.5f);
+                Ballon.DOAnchorPosY(786, ballonAppearDelay).SetEase(Ease.InCubic);
+                Context.GetComponent<GameManager>().StartGame();
+                shakeHintText = false;
+            }
         });
         ShakeHintText();
     }
