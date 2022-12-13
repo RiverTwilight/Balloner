@@ -18,14 +18,11 @@ public class CoinController : MonoBehaviour
         targetPosition = -(Screen.height) - 3000;
 
     }
-
-
     // Update is called once per frame
     private void Update()
     {
         Movement();
     }
-    [Button]
 
     private void Movement()
     {
@@ -34,7 +31,7 @@ public class CoinController : MonoBehaviour
 
         //Debug.Log(v.y);
 
-        if (v.y < targetPosition)
+        if (v.y <= targetPosition)
         {
             Destroy(gameObject);
         }

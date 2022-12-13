@@ -33,7 +33,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
@@ -56,7 +56,7 @@ MonoBehaviour:
   spiteImage: {fileID: 21300000, guid: cb1f5c4a1dbdac642a4ab560cf91284b, type: 3}
   destoryTime: 5
   yMax: 6000
-  speed: 2
+  speed: 5.02
   speed_middlm: 2.5
   speed_fast: 3
 --- !u!114 &5968511585973149330

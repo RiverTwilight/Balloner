@@ -23,11 +23,11 @@ public class SpliteGenerator : MonoBehaviour
     {
         spitePosition = new ItemManager.SpitePosition(() => DestoryGroup());
 
-        int spiteNum = Random.Range(0, 5);
+        int spiteNum = Random.Range(2, 5);
         GenerateGroup(spiteNum);
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         MoveSpite();
     }

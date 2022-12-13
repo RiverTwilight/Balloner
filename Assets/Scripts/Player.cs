@@ -34,8 +34,9 @@ public class Player : MonoBehaviour
     void CheckCollidation()
     {
         var transform = GetComponent<RectTransform>();
+        var collider = GetComponent<BoxCollider2D>();
 
-        ballonBounds = new Bounds(transform.position * 2, transform.rect.size);
+        ballonBounds = new Bounds(collider.bounds.center * 2, collider.bounds.size * 2);
 
         Debug.Log($"Ballon [center: {ballonBounds.center} size: {ballonBounds.size}]");
 
@@ -44,12 +45,13 @@ public class Player : MonoBehaviour
             if (spite == null) { Debug.Log("ASDFASDF"); return; }
             var spiteBounds = spite.CreateBounds();
             var actualSpiteBounds = new Bounds(spiteBounds.center * 2, spiteBounds.size);
-            Debug.Log($"Spite{spite} [center: {spiteBounds.center} size: {spiteBounds.size}]");
+            //Debug.Log($"Spite{spite} [center: {spiteBounds.center} size: {spiteBounds.size}]");
             if (ballonBounds.Intersects(actualSpiteBounds))
             {
                 Debug.Log("Fxxxxk");
                 ItemManager.Instance.SpitesQueue.Clear();
                 SceneManager.LoadScene("Main");
+                AudioManager.stopBackgroundMusic();
             }
         });
     }

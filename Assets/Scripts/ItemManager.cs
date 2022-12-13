@@ -16,7 +16,8 @@ public class ItemManager : SingletonMonoBehavior<ItemManager>
     public float safeScreenHeight;
 
     public Transform Canvas;
-    public GameObject CloudContainer;
+    public GameObject FarCloudContainer;
+    public GameObject NearCloudContainer;
     public GameObject SpiteContainer;
     public GameObject CoinContainer;
 
@@ -73,7 +74,8 @@ public class ItemManager : SingletonMonoBehavior<ItemManager>
 
         var originalDestory = _spiteObj.spitePosition.handleDestory;
 
-        _spiteObj.spitePosition.handleDestory = () => {
+        _spiteObj.spitePosition.handleDestory = () =>
+        {
             originalDestory();
             SpitesQueue.RemoveAt(0);
         };
@@ -86,13 +88,24 @@ public class ItemManager : SingletonMonoBehavior<ItemManager>
     {
         float randomX = Random.Range(-50, screenWidth + 50);
 
-        Instantiate(Coin_Prefab, new Vector3(randomX, 3500, 0), Quaternion.identity, CoinContainer.transform);
+        Instantiate(Coin_Prefab, new Vector3(randomX, 3000, 0), Quaternion.identity, CoinContainer.transform);
     }
     [Button]
     public void SpawnCloud()
     {
         float randomX = Random.Range(-50, screenWidth + 50);
 
-        Instantiate(Cloud_Prefab, new Vector3(randomX, 2000, 0), Quaternion.identity, CloudContainer.transform);
+        int distance = Random.Range(0, 50);
+
+        if (distance <= 40)
+        {
+
+            Instantiate(Cloud_Prefab, new Vector3(randomX, 3500, 0), Quaternion.identity, FarCloudContainer.transform);
+        }
+        else
+        {
+            Instantiate(Cloud_Prefab, new Vector3(randomX, 3500, 0), Quaternion.identity, NearCloudContainer.transform);
+        }
+
     }
 }

@@ -7,6 +7,8 @@ using Cysharp.Threading.Tasks;
 public class GameManager : MonoBehaviour
 {
     private ItemManager ItemManager;
+
+    public Animator LandAnimator;
     public enum GameStatusSet
     {
         Playing,
@@ -15,10 +17,11 @@ public class GameManager : MonoBehaviour
 
     public GameStatusSet gameStatus;
 
-    // Start is called before the first frame update
     void Start()
     {
         ItemManager = GetComponent<ItemManager>();
+        LandAnimator.speed = 0.5f;
+        LandAnimator.Play("Land");
     }
 
     // Update is called once per frame
@@ -35,7 +38,7 @@ public class GameManager : MonoBehaviour
         {
             ItemManager.SpawnSpite();
             ItemManager.SpawnCloud();
-            //ItemManager.SpawnCoin();
+            ItemManager.SpawnCoin();
             await UniTask.Delay(10000);
         }
     }

@@ -13,14 +13,15 @@ public class CloudController : MonoBehaviour
 
     private void Start()
     {
-        targetPosition = -(Screen.height) - 3000;
+        targetPosition = -(Screen.height) - 2500;
         GenerateCloud();
     }
-    // Update is called once per frame
+
     private void Update()
     {
         Movement();
     }
+
     [Button]
     private void GenerateCloud()
     {
@@ -30,13 +31,13 @@ public class CloudController : MonoBehaviour
     private void Movement()
     {
         Vector3 v = transform.localPosition;
-        transform.localPosition = new Vector3(v.x, Mathf.MoveTowards(v.y, targetPosition, speed), v.z);
 
-        //Debug.Log(v.y);
-
-        if (v.y < targetPosition - 200)
+        if (v.y <= targetPosition)
         {
             Destroy(gameObject);
         }
+
+        transform.localPosition = new Vector3(v.x, Mathf.MoveTowards(v.y, targetPosition, speed), v.z);
+
     }
 }
