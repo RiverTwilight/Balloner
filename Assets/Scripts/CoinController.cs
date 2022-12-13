@@ -18,8 +18,8 @@ public class CoinController : MonoBehaviour
         targetPosition = -(Screen.height) - 3000;
 
     }
-    // Update is called once per frame
-    private void Update()
+
+    private void FixedUpdate()
     {
         Movement();
     }

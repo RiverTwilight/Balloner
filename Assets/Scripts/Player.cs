@@ -11,24 +11,27 @@ public class Player : MonoBehaviour
 {
     [Title("Touch")]
     [ReadOnly] private Touch theTouch;
-    private Vector2 touchStartPosition, touchEndPosition;
+    [ReadOnly] private Vector2 touchStartPosition, touchEndPosition;
 
     public Text currentScore;
-
-
 
     public GameObject ballon;
     public Bounds ballonBounds;
 
-    async void Start()
-    {
-        var rect = GetComponent<RectTransform>().rect;
-    }
+    //void Start()
+    //{
+        
+    //}
 
     void Update()
     {
         CheckCollidation();
         Movement();
+    }
+
+    void CheckCollectableItems()
+    {
+
     }
 
     void CheckCollidation()
@@ -96,7 +99,6 @@ public class Player : MonoBehaviour
                         else
                         {
                             transform.localPosition = new Vector3((-(Screen.width / 2) + 50) * 2, v.y, v.z);
-
                         }
                     }
                 }

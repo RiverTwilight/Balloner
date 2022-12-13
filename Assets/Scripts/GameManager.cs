@@ -6,6 +6,12 @@ using Cysharp.Threading.Tasks;
 
 public class GameManager : MonoBehaviour
 {
+    [Title("Movement")]
+    public float speed_slow = 5f;
+    public float speed_mid = 7f;
+    public float speed_fast = 10f;
+    public float speed = 5f;
+
     private ItemManager ItemManager;
 
     public Animator LandAnimator;
@@ -24,11 +30,10 @@ public class GameManager : MonoBehaviour
         LandAnimator.Play("Land");
     }
 
-    // Update is called once per frame
-    //void Update()
-    //{
-
-    //}
+    void Update()
+    {
+        speed = speed_slow;
+    }
 
     async public void StartGame()
     {

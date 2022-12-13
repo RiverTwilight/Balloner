@@ -46,8 +46,10 @@ public class SpliteGenerator : MonoBehaviour
 
     public void MoveSpite()
     {
+        var gameManager = new GameManager();
+
         Vector3 v = transform.localPosition;
-        transform.localPosition = new Vector3(v.x, Mathf.MoveTowards(v.y, -(Screen.height + 2500), speed), v.z);
+        transform.localPosition = new Vector3(v.x, Mathf.MoveTowards(v.y, -(Screen.height + 2500), gameManager.speed), v.z);
 
         if (v.y < -(Screen.height + 1200))
         {
