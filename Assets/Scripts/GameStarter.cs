@@ -26,7 +26,7 @@ public class GameStarter : MonoBehaviour
     {
         GetComponent<InteractableMonoBehavior>().onPointerClick.AddListener((eD) =>
         {
-            if (Context.GetComponent<GameManager>().gameStatus == GameManager.GameStatusSet.Initialized)
+            if (Context.GetComponent<GameManager>().gameStatus == GameStatusSet.Initialized)
             {
                 UIcanvasGroup.DOFade(0, 0.5f);
                 Score.DOFade(1, 0.5f);

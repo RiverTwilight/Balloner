@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Sirenix.OdinInspector;
 using Cysharp.Threading.Tasks;
 
@@ -10,18 +11,15 @@ public class GameManager : MonoBehaviour
     public float speed_slow = 5f;
     public float speed_mid = 7f;
     public float speed_fast = 10f;
-    public float speed = 5f;
 
     private ItemManager ItemManager;
-
     public Animator LandAnimator;
-    public enum GameStatusSet
-    {
-        Playing,
-        Initialized
-    };
+    public Text CurrentScoreComp;
 
+    [Title("Status")]
     public GameStatusSet gameStatus;
+    public float speed = 5f;
+    public int currentScore;
 
     void Start()
     {
@@ -32,7 +30,18 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        speed = speed_slow;
+        if (currentScore < 100)
+        {
+            speed = speed_slow;
+        }
+        else if (currentScore < 200)
+        {
+            speed = speed_mid;
+        }
+        else
+        {
+            speed = speed_fast;
+        }
     }
 
     async public void StartGame()

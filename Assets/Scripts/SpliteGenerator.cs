@@ -13,8 +13,8 @@ public class SpliteGenerator : MonoBehaviour
     public float yMax = 6000;
 
     [Title("Movement")]
-    public float speed = 2.5f;
-    public float speed_middlm = 2.5f;
+    public float speed_low = 2.5f;
+    public float speed_middle = 2.5f;
     public float speed_fast = 3f;
 
     public ItemManager.SpitePosition spitePosition;
@@ -46,8 +46,7 @@ public class SpliteGenerator : MonoBehaviour
 
     public void MoveSpite()
     {
-        var gameManager = new GameManager();
-
+        GameManager gameManager = GameObject.Find("Context").GetComponent<GameManager>();
         Vector3 v = transform.localPosition;
         transform.localPosition = new Vector3(v.x, Mathf.MoveTowards(v.y, -(Screen.height + 2500), gameManager.speed), v.z);
 
