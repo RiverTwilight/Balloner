@@ -5,7 +5,7 @@ using UnityEngine.Audio;
 using Sirenix.OdinInspector;
 using Cysharp.Threading.Tasks;
 
-public class AudioManager : MonoBehaviour
+public class AudioManager : SingletonMonoBehavior<MonoBehaviour>
 {
     static AudioManager current;
 
@@ -18,7 +18,7 @@ public class AudioManager : MonoBehaviour
     {
         current = this;
 
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
 
         musicSource = gameObject.AddComponent<AudioSource>();
     }
