@@ -46,7 +46,7 @@ public class CloudController : MonoBehaviour
 
         GameManager gameManager = GameObject.Find("Context").GetComponent<GameManager>();
 
-        float cloudSpeed = isFarCloud ? gameManager.speed / 10 - 0.5f : gameManager.speed / 10 + 1f;
+        float cloudSpeed = isFarCloud ? gameManager.speed / 10 - 0.5f : gameManager.speed / 10 + 0.6f;
 
         transform.localPosition = new Vector3(v.x, Mathf.MoveTowards(v.y, targetPosition, cloudSpeed), v.z);
     }

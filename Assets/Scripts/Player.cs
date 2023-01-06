@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using UnityEngine.SceneManagement;
@@ -13,25 +12,30 @@ public class Player : MonoBehaviour
     [ReadOnly] private Touch theTouch;
     [ReadOnly] private Vector2 touchStartPosition, touchEndPosition;
 
-    public Text currentScore;
-
     public GameObject ballon;
     public Bounds ballonBounds;
+    public GameManager gameManager;
 
-    //void Start()
-    //{
-        
-    //}
+    void Start()
+    {
+        gameManager = GameObject.Find("Context").GetComponent<GameManager>();
+    }
 
     void Update()
     {
-        CheckCollidation();
         Movement();
+        switch (gameManager.gameStatus)
+        {
+            case GameStatusSet.Playing:
+                CheckCollidation();
+                break;
+        }
+
     }
 
     void CheckCollectableItems()
     {
-
+        // TODO
     }
 
     void CheckCollidation()
@@ -43,18 +47,20 @@ public class Player : MonoBehaviour
 
         //Debug.Log($"Ballon [center: {ballonBounds.center} size: {ballonBounds.size}]");
 
-        ItemManager.Instance?.SpitesQueue.ForEach(spite =>
+        List<ItemManager.SpitePosition> queue = ItemManager.Instance?.SpitesQueue.Where(i => i != null).ToList();
+
+        queue.ForEach(spite =>
         {
-            if (spite == null) { Debug.Log("ASDFASDF"); return; }
             var spiteBounds = spite.CreateBounds();
             var actualSpiteBounds = new Bounds(spiteBounds.center * 2, spiteBounds.size);
             //Debug.Log($"Spite{spite} [center: {spiteBounds.center} size: {spiteBounds.size}]");
             if (ballonBounds.Intersects(actualSpiteBounds))
             {
-                Debug.Log("Fxxxxk");
+                Debug.Log("Colided");
+                gameManager.ResetGame();
                 ItemManager.Instance.SpitesQueue.Clear();
-                SceneManager.LoadScene("Main");
                 AudioManager.stopBackgroundMusic();
+                SceneManager.LoadScene("Main");
             }
         });
     }

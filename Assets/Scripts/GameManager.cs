@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using Sirenix.OdinInspector;
 using Cysharp.Threading.Tasks;
 
-public class GameManager : SingletonMonoBehavior<MonoBehaviour>
+public class GameManager : MonoBehaviour
 {
     private ItemManager ItemManager;
     public Animator LandAnimator;
@@ -31,6 +31,28 @@ public class GameManager : SingletonMonoBehavior<MonoBehaviour>
     }
 
     void Update()
+    {
+        switch (gameStatus)
+        {
+            case GameStatusSet.Initialized:
+                if (Input.GetKey(KeyCode.Escape))
+                {
+                    Application.Quit();
+                }
+                break;
+            case GameStatusSet.Playing:
+                UpdateSpeed();
+                break;
+            case GameStatusSet.Paused:
+                if (Input.GetKey(KeyCode.Escape))
+                {
+                    // TODO pause menu
+                }
+                break;
+        }
+    }
+
+    private void UpdateSpeed()
     {
         if (currentScore < 100)
         {
@@ -59,6 +81,12 @@ public class GameManager : SingletonMonoBehavior<MonoBehaviour>
             timeStick = 0;
             Debug.Log("currentHeight: " + currentHeight);
         }
+    }
+
+    public void ResetGame()
+    {
+        currentHeight = 0;
+        gameStatus = GameStatusSet.Initialized;
     }
 
     async public void StartGame()

@@ -97,7 +97,7 @@ public class ItemManager : SingletonMonoBehavior<ItemManager>
 
         int distance = Random.Range(0, 100);
 
-        if (distance <= 60)
+        if (distance <= 60 || gameObject.GetComponent<GameManager>().currentHeight < 150)
         {
             GameObject cloud = Instantiate(Cloud_Prefab, new Vector3(randomX, 3500, 0), Quaternion.identity, FarCloudContainer.transform);
             cloud.GetComponent<CanvasGroup>().alpha = Random.Range(0.2f, 1);
