@@ -7,6 +7,7 @@ using Sirenix.OdinInspector;
 public class SpliteGenerator : MonoBehaviour
 {
     public GameObject group;
+    public GameObject Context;
     public Sprite spiteImage;
 
     public float destoryTime = 5f;
@@ -47,14 +48,17 @@ public class SpliteGenerator : MonoBehaviour
     public void MoveSpite()
     {
         GameManager gameManager = GameObject.Find("Context").GetComponent<GameManager>();
+
         Vector3 v = transform.localPosition;
-        transform.localPosition = new Vector3(v.x, Mathf.MoveTowards(v.y, -(Screen.height + 2500), gameManager.speed), v.z);
 
         if (v.y < -(Screen.height + 1200))
         {
             spitePosition.handleDestory();
             //DestoryGroup();
         }
+
+        transform.localPosition = new Vector3(v.x, Mathf.MoveTowards(v.y, -(Screen.height + 2500), gameManager.speed), v.z);
+
     }
 
     [Button]

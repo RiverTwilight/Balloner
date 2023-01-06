@@ -5,16 +5,16 @@ using UnityEngine.UI;
 using Sirenix.OdinInspector;
 using Cysharp.Threading.Tasks;
 
-public class GameManager : MonoBehaviour
+public class GameManager : SingletonMonoBehavior<MonoBehaviour>
 {
-    [Title("Movement")]
-    public float speed_slow = 5f;
-    public float speed_mid = 7f;
-    public float speed_fast = 10f;
-
     private ItemManager ItemManager;
     public Animator LandAnimator;
     public Text CurrentScoreComp;
+
+    [Title("Movement")]
+    public float speed_slow = 8f;
+    public float speed_mid = 10f;
+    public float speed_fast = 12f;
 
     [Title("Status")]
     public GameStatusSet gameStatus;

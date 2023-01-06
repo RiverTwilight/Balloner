@@ -61,7 +61,7 @@ public class ItemManager : SingletonMonoBehavior<ItemManager>
     {
         float randomX = Random.Range(0, screenWidth);
 
-        var spiteObj = Instantiate(Spite_Prefab, new Vector3(randomX, 2500, 0), Quaternion.identity, SpiteContainer.transform);
+        var spiteObj = Instantiate(Spite_Prefab, new Vector3(randomX, 2700, 0), Quaternion.identity, SpiteContainer.transform);
 
         await UniTask.DelayFrame(0);
 
@@ -86,7 +86,7 @@ public class ItemManager : SingletonMonoBehavior<ItemManager>
     [Button]
     public void SpawnCoin()
     {
-        float randomX = Random.Range(-50, screenWidth + 50);
+        float randomX = Random.Range(5, screenWidth - 5);
 
         Instantiate(Coin_Prefab, new Vector3(randomX, 3000, 0), Quaternion.identity, CoinContainer.transform);
     }
@@ -97,14 +97,18 @@ public class ItemManager : SingletonMonoBehavior<ItemManager>
 
         int distance = Random.Range(0, 50);
 
-        if (distance <= 40)
+        if (distance <= 25)
         {
-
-            Instantiate(Cloud_Prefab, new Vector3(randomX, 3500, 0), Quaternion.identity, FarCloudContainer.transform);
+            GameObject cloud = Instantiate(Cloud_Prefab, new Vector3(randomX, 3500, 0), Quaternion.identity, FarCloudContainer.transform);
+            cloud.GetComponent<CanvasGroup>().alpha = Random.Range(0.2f, 1);
         }
         else
         {
-            Instantiate(Cloud_Prefab, new Vector3(randomX, 3500, 0), Quaternion.identity, NearCloudContainer.transform);
+            // Magnifiy near cloud, and force alpha to 0.9.
+            GameObject cloud = Instantiate(Cloud_Prefab, new Vector3(randomX, 3500, 0), Quaternion.identity, NearCloudContainer.transform);
+            cloud.transform.localScale = new Vector3(1.3f, 1.3f, 1f);
+            cloud.GetComponent<CanvasGroup>().alpha = 0.9f;
+            cloud.GetComponent<CloudController>().SetFarCloud(false);
         }
 
     }

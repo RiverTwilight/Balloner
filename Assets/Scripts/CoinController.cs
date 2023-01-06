@@ -26,14 +26,16 @@ public class CoinController : MonoBehaviour
 
     private void Movement()
     {
-        Vector3 v = transform.localPosition;
-        transform.localPosition = new Vector3(v.x, Mathf.MoveTowards(v.y, targetPosition, speed), v.z);
 
-        //Debug.Log(v.y);
+        Vector3 v = transform.localPosition;
 
         if (v.y <= targetPosition)
         {
             Destroy(gameObject);
         }
+
+        GameManager gameManager = GameObject.Find("Context").GetComponent<GameManager>();
+
+        transform.localPosition = new Vector3(v.x, Mathf.MoveTowards(v.y, targetPosition, gameManager.speed), v.z);
     }
 }
