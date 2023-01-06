@@ -41,7 +41,7 @@ public class Player : MonoBehaviour
 
         ballonBounds = new Bounds(collider.bounds.center * 2, collider.bounds.size * 2);
 
-        Debug.Log($"Ballon [center: {ballonBounds.center} size: {ballonBounds.size}]");
+        //Debug.Log($"Ballon [center: {ballonBounds.center} size: {ballonBounds.size}]");
 
         ItemManager.Instance?.SpitesQueue.ForEach(spite =>
         {

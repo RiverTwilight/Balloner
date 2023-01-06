@@ -20,6 +20,8 @@ public class GameManager : SingletonMonoBehavior<MonoBehaviour>
     public GameStatusSet gameStatus;
     public float speed = 5f;
     public int currentScore;
+    public int currentHeight;
+    public float timeStick;
 
     void Start()
     {
@@ -44,6 +46,21 @@ public class GameManager : SingletonMonoBehavior<MonoBehaviour>
         }
     }
 
+    private void FixedUpdate()
+    {
+        timeStick += Time.deltaTime;
+        if (timeStick > 1.0)
+        {
+            int intSpeed = (int)speed;
+            if (gameStatus == GameStatusSet.Playing)
+            {
+                currentHeight += intSpeed / 2;
+            }
+            timeStick = 0;
+            Debug.Log("currentHeight: " + currentHeight);
+        }
+    }
+
     async public void StartGame()
     {
         gameStatus = GameStatusSet.Playing;
@@ -53,7 +70,20 @@ public class GameManager : SingletonMonoBehavior<MonoBehaviour>
             ItemManager.SpawnSpite();
             ItemManager.SpawnCloud();
             ItemManager.SpawnCoin();
-            await UniTask.Delay(10000);
+            int randomDelay;
+            if (speed == speed_slow)
+            {
+                randomDelay = Random.Range(9000, 12000);
+            }
+            else if (speed == speed_mid)
+            {
+                randomDelay = Random.Range(6000, 9000);
+            }
+            else
+            {
+                randomDelay = Random.Range(3000, 6000);
+            }
+            await UniTask.Delay(randomDelay);
         }
     }
 }
