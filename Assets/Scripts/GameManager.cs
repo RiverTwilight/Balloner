@@ -8,7 +8,6 @@ using Cysharp.Threading.Tasks;
 public class GameManager : MonoBehaviour
 {
     private ItemManager ItemManager;
-    public Animator LandAnimator;
     public Text CurrentScoreComp;
 
     [Title("Movement")]
@@ -26,8 +25,6 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         ItemManager = GetComponent<ItemManager>();
-        LandAnimator.speed = 0.5f;
-        LandAnimator.Play("Land");
     }
 
     void Update()
