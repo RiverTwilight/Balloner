@@ -23,6 +23,7 @@ public class ItemManager : SingletonMonoBehavior<ItemManager>
 
     public List<SpitePosition> SpitesQueue;
     public List<Item> ItemQueue;
+    private float coinSpwanStick;
 
     public class Item
     {
@@ -76,6 +77,33 @@ public class ItemManager : SingletonMonoBehavior<ItemManager>
 
         SpitesQueue = new List<SpitePosition>();
         ItemQueue = new List<Item>();
+    }
+
+    private void Update()
+    {
+        switch (GetComponent<GameManager>().gameStatus)
+        {
+            case GameStatusSet.Playing:
+                SpawnCoinFlow();
+                break;
+            case GameStatusSet.Paused:
+                if (Input.GetKey(KeyCode.Escape))
+                {
+                    // TODO pause menu
+                }
+                break;
+        }
+    }
+
+    private void SpawnCoinFlow()
+    {
+        coinSpwanStick += Time.deltaTime;
+        var gameManager = GetComponent<GameManager>();
+        if (coinSpwanStick > (gameManager.speed + 2f) - gameManager.speed)
+        {
+            SpawnCoin();
+            coinSpwanStick = 0;
+        }
     }
 
     [Button]

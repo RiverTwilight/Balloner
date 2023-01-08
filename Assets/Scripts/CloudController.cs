@@ -8,7 +8,9 @@ public class CloudController : MonoBehaviour
 {
     public float targetPosition;
 
-    public Sprite cloudImage;
+    public List<Sprite> cloudImage;
+
+    public GameObject imageContainer;
 
     public bool isFarCloud = true;
 
@@ -27,6 +29,7 @@ public class CloudController : MonoBehaviour
     private void GenerateCloud()
     {
         GetComponent<CanvasGroup>().alpha = Random.Range(0.2f, 1);
+        imageContainer.GetComponent<Image>().sprite = cloudImage[Random.Range(0, cloudImage.ToArray().Length)];
     }
 
     public void SetFarCloud(bool status)

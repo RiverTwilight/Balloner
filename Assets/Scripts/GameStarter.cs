@@ -11,7 +11,8 @@ public class GameStarter : MonoBehaviour
 
     [Title("Game Objects")]
     public RectTransform Ballon;
-    public RectTransform Land;
+    public RectTransform Ground;
+    public RectTransform BallonShadow;
     public RectTransform Mountain;
     public CanvasGroup Score;
     public CanvasGroup HintText;
@@ -26,18 +27,20 @@ public class GameStarter : MonoBehaviour
 
     private void Start()
     {
-        GetComponent<InteractableMonoBehavior>().onPointerClick.AddListener((eD) =>
+        GetComponent<InteractableMonoBehavior>().onPointerClick.AddListener(async (eD) =>
         {
             if (Context.GetComponent<GameManager>().gameStatus == GameStatusSet.Initialized)
             {
                 UIcanvasGroup.DOFade(0, 0.5f);
                 Score.DOFade(1, 0.5f);
                 Ballon.DOAnchorPosY(700, ballonLiftDelay).SetEase(Ease.InCubic);
-                Land.DOAnchorPosY(-1000, landDownDelay).SetEase(Ease.InCubic);
+                BallonShadow.DOScale(new Vector3(0, 0, 1), 3);
+                Ground.DOAnchorPosY(1000, landDownDelay).SetEase(Ease.InCubic);
                 Mountain.DOAnchorPosY(-1000, mountainDownDelay).SetEase(Ease.InCubic);
-                Context.GetComponent<GameManager>().StartGame();
                 shakeHintText = false;
                 AudioManager.playBackgroundMusic();
+                await UniTask.DelayFrame(0);
+                Context.GetComponent<GameManager>().StartGame();
             }
         });
         ShakeHintText();

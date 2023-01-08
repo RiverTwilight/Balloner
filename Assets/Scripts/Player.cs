@@ -81,7 +81,7 @@ public class Player : MonoBehaviour
 
         //Debug.Log($"Ballon [center: {ballonBounds.center} size: {ballonBounds.size}]");
 
-        List<ItemManager.SpitePosition> queue = ItemManager.Instance?.SpitesQueue.Where(i => i != null).ToList();
+        List<ItemManager.SpitePosition> queue = ItemManager.Instance?.SpitesQueue.Where(i => i.self != null).ToList();
 
         queue.ForEach(spite =>
         {
@@ -91,10 +91,10 @@ public class Player : MonoBehaviour
             if (ballonBounds.Intersects(actualSpiteBounds))
             {
                 Debug.Log("Colided");
-                ItemManager.Instance.SpitesQueue.Clear();
-                ItemManager.Instance.ItemQueue.Clear();
                 AudioManager.stopBackgroundMusic();
                 gameManager.ResetGame();
+                ItemManager.Instance.SpitesQueue.Clear();
+                ItemManager.Instance.ItemQueue.Clear();
                 SceneManager.LoadScene("Main");
             }
         });

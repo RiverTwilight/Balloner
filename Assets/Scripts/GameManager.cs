@@ -21,7 +21,6 @@ public class GameManager : MonoBehaviour
     public int currentScore;
     public int currentHeight;
     private float timeStick;
-    private float coinSpwanStick;
 
     void Start()
     {
@@ -32,7 +31,6 @@ public class GameManager : MonoBehaviour
     {
         CurrentScoreComp.text = "Score: " + currentScore;
 
-        SpawnCoinWork();
 
         switch (gameStatus)
         {
@@ -52,17 +50,6 @@ public class GameManager : MonoBehaviour
                 }
                 break;
         }
-    }
-
-    private void SpawnCoinWork()
-    {
-        coinSpwanStick += Time.deltaTime;
-        if (coinSpwanStick > (speed_fast + 2f) - speed)
-        {
-            ItemManager.SpawnCoin();
-            coinSpwanStick = 0;
-        }
-
     }
 
     private void UpdateSpeed()

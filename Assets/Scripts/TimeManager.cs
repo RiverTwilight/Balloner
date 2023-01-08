@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
 
 public class TimeManager : MonoBehaviour
 {
@@ -12,6 +13,9 @@ public class TimeManager : MonoBehaviour
 
     public GameObject NightBackground;
     public GameObject DayBackground;
+    public GameObject StarSky;
+
+    public GameObject Star_Prefab;
 
     // Start is called before the first frame update
     //void Start()
@@ -31,6 +35,7 @@ public class TimeManager : MonoBehaviour
         while (canvaGroup.alpha < 1f)
         {
             canvaGroup.alpha += 0.05f;
+            StarSky.GetComponent<CanvasGroup>().alpha += 0.05f;
             await UniTask.Delay(100);
         }
     }
@@ -41,13 +46,25 @@ public class TimeManager : MonoBehaviour
         while (canvaGroup.alpha > 0f)
         {
             canvaGroup.alpha -= 0.05f;
+            StarSky.GetComponent<CanvasGroup>().alpha -= 0.05f;
+
             await UniTask.Delay(100);
+        }
+        foreach (Transform child in StarSky.transform)
+        {
+            Destroy(child.gameObject);
         }
     }
 
-    public void GenerateStars()
+    private void GenerateStarsky()
     {
-        // TODO
+        int i = 0;
+        while (i < 7)
+        {
+            Instantiate(Star_Prefab, StarSky.transform);
+            i++;
+        }
+
     }
 
     public void SwitchTime()
@@ -65,6 +82,7 @@ public class TimeManager : MonoBehaviour
             if (isNight)
             {
                 SwitchNight();
+                GenerateStarsky();
             }
             else
             {
