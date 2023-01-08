@@ -31,7 +31,7 @@ RectTransform:
   m_Children:
   - {fileID: 5832458976286769788}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -85,11 +85,11 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7352852648322486897}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -490.2099, y: 1662.3007}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -97.659, y: -97.609}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8123572710829184974
@@ -102,7 +102,7 @@ CanvasRenderer:
   m_CullTransparentMesh: 1
 --- !u!95 &4231510510712562218
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -119,7 +119,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!114 &7308542923884681046
 MonoBehaviour:
   m_ObjectHideFlags: 0

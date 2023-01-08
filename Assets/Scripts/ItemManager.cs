@@ -22,6 +22,27 @@ public class ItemManager : SingletonMonoBehavior<ItemManager>
     public GameObject CoinContainer;
 
     public List<SpitePosition> SpitesQueue;
+    public List<Item> ItemQueue;
+
+    public class Item
+    {
+        public Transform self;
+        public Vector3 itemSize;
+        public bool collected = false;
+
+        public UnityAction handleDestory;
+        public ItemSet itemType;
+
+        public Item(UnityAction handleDestory, ItemSet itemType)
+        {
+            this.handleDestory = handleDestory;
+            this.itemType = itemType;
+        }
+        public Bounds CreateBounds()
+        {
+            return new Bounds(self.position, itemSize);
+        }
+    }
 
     public class SpitePosition
     {
@@ -54,6 +75,7 @@ public class ItemManager : SingletonMonoBehavior<ItemManager>
         safeScreenHeight = screenHeight - 10;
 
         SpitesQueue = new List<SpitePosition>();
+        ItemQueue = new List<Item>();
     }
 
     [Button]
@@ -84,11 +106,34 @@ public class ItemManager : SingletonMonoBehavior<ItemManager>
     }
 
     [Button]
-    public void SpawnCoin()
+    public async void SpawnCoin()
     {
         float randomX = Random.Range(5, screenWidth - 5);
 
-        Instantiate(Coin_Prefab, new Vector3(randomX, 3000, 0), Quaternion.identity, CoinContainer.transform);
+        var coinObj = Instantiate(Coin_Prefab, new Vector3(randomX, 3000, 0), Quaternion.identity, CoinContainer.transform);
+
+        await UniTask.DelayFrame(0);
+
+        var _coinObj = coinObj.GetComponent<CoinController>();
+
+        if (_coinObj == null)
+        {
+            return;
+        }
+
+        var originalDestory = _coinObj.coinPosition.handleDestory;
+
+        ItemQueue.Add(_coinObj.coinPosition);
+
+        int coinIndex = ItemQueue.ToArray().Length - 1;
+
+        _coinObj.coinPosition.handleDestory = () =>
+        {
+            _coinObj.coinPosition.collected = true;
+            originalDestory();
+        };
+
+
     }
     [Button]
     public void SpawnCloud()
@@ -110,6 +155,5 @@ public class ItemManager : SingletonMonoBehavior<ItemManager>
             cloud.GetComponent<CanvasGroup>().alpha = 0.9f;
             cloud.GetComponent<CloudController>().SetFarCloud(false);
         }
-
     }
 }

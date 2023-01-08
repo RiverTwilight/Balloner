@@ -28,6 +28,7 @@ public class Player : MonoBehaviour
         {
             case GameStatusSet.Playing:
                 CheckCollidation();
+                CheckCollectableItems();
                 break;
         }
 
@@ -35,7 +36,40 @@ public class Player : MonoBehaviour
 
     void CheckCollectableItems()
     {
-        // TODO
+        var transform = GetComponent<RectTransform>();
+        var collider = GetComponent<BoxCollider2D>();
+
+        ballonBounds = new Bounds(collider.bounds.center * 2, collider.bounds.size * 2);
+
+        List<ItemManager.Item> queue = ItemManager.Instance?.ItemQueue.Where(i => i.self != null).ToList();
+        int queueLength = queue.ToArray().Length;
+
+        //Debug.Log("Check: " + queue.ToArray().Length);
+
+        for (int i = 0; i < queueLength; i++)
+        {
+            var item = queue[i];
+            var spiteBounds = item.CreateBounds();
+            var actualSpiteBounds = new Bounds(spiteBounds.center * 2, spiteBounds.size);
+            //Debug.Log($"Spite{spite} [center: {spiteBounds.center} size: {spiteBounds.size}]");
+            if (ballonBounds.Intersects(actualSpiteBounds))
+            {
+                Debug.Log("Collected");
+
+                switch (item.itemType)
+                {
+                    case ItemSet.Coin_1:
+                        gameManager.UpdateScore(1);
+                        break;
+                }
+
+                item.handleDestory();
+            }
+            if (queue.ToArray().Length - 1 == i && item.collected)
+            {
+                ItemManager.Instance?.ItemQueue.RemoveAt(i);
+            }
+        }
     }
 
     void CheckCollidation()
@@ -57,9 +91,10 @@ public class Player : MonoBehaviour
             if (ballonBounds.Intersects(actualSpiteBounds))
             {
                 Debug.Log("Colided");
-                gameManager.ResetGame();
                 ItemManager.Instance.SpitesQueue.Clear();
+                ItemManager.Instance.ItemQueue.Clear();
                 AudioManager.stopBackgroundMusic();
+                gameManager.ResetGame();
                 SceneManager.LoadScene("Main");
             }
         });

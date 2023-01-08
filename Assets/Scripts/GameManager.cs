@@ -20,7 +20,8 @@ public class GameManager : MonoBehaviour
     public float speed = 5f;
     public int currentScore;
     public int currentHeight;
-    public float timeStick;
+    private float timeStick;
+    private float coinSpwanStick;
 
     void Start()
     {
@@ -29,6 +30,10 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        CurrentScoreComp.text = "Score: " + currentScore;
+
+        SpawnCoinWork();
+
         switch (gameStatus)
         {
             case GameStatusSet.Initialized:
@@ -49,13 +54,24 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void SpawnCoinWork()
+    {
+        coinSpwanStick += Time.deltaTime;
+        if (coinSpwanStick > (speed_fast + 2f) - speed)
+        {
+            ItemManager.SpawnCoin();
+            coinSpwanStick = 0;
+        }
+
+    }
+
     private void UpdateSpeed()
     {
-        if (currentScore < 100)
+        if (currentScore <= 10)
         {
             speed = speed_slow;
         }
-        else if (currentScore < 200)
+        else if (currentScore <= 100)
         {
             speed = speed_mid;
         }
@@ -63,6 +79,11 @@ public class GameManager : MonoBehaviour
         {
             speed = speed_fast;
         }
+    }
+
+    public void UpdateScore(int delta)
+    {
+        currentScore += delta;
     }
 
     private void FixedUpdate()
@@ -73,7 +94,7 @@ public class GameManager : MonoBehaviour
             int intSpeed = (int)speed;
             if (gameStatus == GameStatusSet.Playing)
             {
-                currentHeight += intSpeed / 2;
+                currentHeight += intSpeed / 4;
             }
             timeStick = 0;
             Debug.Log("currentHeight: " + currentHeight);
@@ -83,6 +104,7 @@ public class GameManager : MonoBehaviour
     public void ResetGame()
     {
         currentHeight = 0;
+        currentScore = 0;
         gameStatus = GameStatusSet.Initialized;
     }
 
@@ -94,19 +116,18 @@ public class GameManager : MonoBehaviour
         {
             ItemManager.SpawnSpite();
             ItemManager.SpawnCloud();
-            ItemManager.SpawnCoin();
             int randomDelay;
-            if (speed == speed_slow)
+            if (speed <= speed_slow)
             {
-                randomDelay = Random.Range(9000, 12000);
+                randomDelay = Random.Range(3000, 4000);
             }
-            else if (speed == speed_mid)
+            else if (speed <= speed_mid)
             {
-                randomDelay = Random.Range(6000, 9000);
+                randomDelay = Random.Range(2000, 3000);
             }
             else
             {
-                randomDelay = Random.Range(3000, 6000);
+                randomDelay = Random.Range(1000, 2000);
             }
             await UniTask.Delay(randomDelay);
         }

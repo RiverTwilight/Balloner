@@ -24,7 +24,7 @@ public class SpliteGenerator : MonoBehaviour
     {
         spitePosition = new ItemManager.SpitePosition(() => DestoryGroup());
 
-        int spiteNum = Random.Range(2, 5);
+        int spiteNum = Random.Range(3, 6);
         GenerateGroup(spiteNum);
     }
 
@@ -78,7 +78,6 @@ public class SpliteGenerator : MonoBehaviour
         spitePosition.spiteGroupSize = spiteRect.size;
 
         Debug.Log(spitePosition.spiteGroupSize);
-
     }
 
     public void DestoryGroup()

@@ -11,12 +11,21 @@ public class CoinController : MonoBehaviour
 
     public Animator animator;
 
+    public ItemManager.Item coinPosition;
+    public ItemSet coinType;
+
     private void Start()
     {
+        coinPosition = new ItemManager.Item(() => Destroy(gameObject), coinType);
+
+        var coinRect = GetComponent<RectTransform>().rect;
+
+        coinPosition.itemSize = coinRect.size;
+        coinPosition.self = transform;
+
         animator.speed = 0.5f;
         animator.Play("Coin");
         targetPosition = -(Screen.height) - 3000;
-
     }
 
     private void FixedUpdate()
@@ -31,7 +40,7 @@ public class CoinController : MonoBehaviour
 
         if (v.y <= targetPosition)
         {
-            Destroy(gameObject);
+            GetComponent<CoinController>().coinPosition.handleDestory();
         }
 
         GameManager gameManager = GameObject.Find("Context").GetComponent<GameManager>();
