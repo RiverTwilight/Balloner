@@ -19,19 +19,19 @@ public class Player : MonoBehaviour
     void Start()
     {
         gameManager = GameObject.Find("Context").GetComponent<GameManager>();
+        gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 315, 0);
     }
 
     void Update()
     {
-        Movement();
         switch (gameManager.gameStatus)
         {
             case GameStatusSet.Playing:
+                Movement();
                 CheckCollidation();
                 CheckCollectableItems();
                 break;
         }
-
     }
 
     void CheckCollectableItems()
