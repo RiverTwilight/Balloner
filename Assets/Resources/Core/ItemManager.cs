@@ -45,7 +45,6 @@ public class ItemManager : SingletonMonoBehavior<ItemManager>
         }
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         screenWidth = Screen.width;
@@ -137,8 +136,6 @@ public class ItemManager : SingletonMonoBehavior<ItemManager>
             _coinObj.coinPosition.collected = true;
             originalDestory();
         };
-
-
     }
     [Button]
     public void SpawnCloud()

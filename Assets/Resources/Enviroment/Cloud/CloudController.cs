@@ -16,8 +16,6 @@ public class CloudController : MoveableItem<CloudController>
     {
         GenerateCloud();
         ShuffleNearOrFar();
-
-
     }
 
     private void ShuffleNearOrFar()

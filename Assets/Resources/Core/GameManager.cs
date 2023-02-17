@@ -10,14 +10,17 @@ public class GameManager : MonoBehaviour
     private ItemManager ItemManager;
     public Text CurrentScoreComp;
 
-    [Title("Movement")]
-    public float speed_slow = 8f;
-    public float speed_mid = 10f;
-    public float speed_fast = 12f;
+    [Title("Speed Index Preset")]
+    public int speed_slow;
+    public int speed_mid;
+    public int speed_fast;
 
     [Title("Status")]
     public GameStatusSet gameStatus;
-    public float speed = 5f;
+    [ReadOnly] public float speed;
+    public float speedIndex;
+    public int baseSpeed;
+    [ReadOnly] public bool isLevelChanging = false;
     public int currentScore;
     public int currentHeight;
     private float timeStick;
@@ -31,7 +34,6 @@ public class GameManager : MonoBehaviour
     {
         CurrentScoreComp.text = "Score: " + currentScore;
 
-
         switch (gameStatus)
         {
             case GameStatusSet.Initialized:
@@ -41,50 +43,60 @@ public class GameManager : MonoBehaviour
                 }
                 break;
             case GameStatusSet.Playing:
+                timeStick += Time.deltaTime;
+                if (timeStick > 1.0)
+                {
+                    int intSpeed = (int)speed;
+                    currentHeight += intSpeed / 4;
+                    timeStick = 0;
+                }
                 UpdateSpeed();
+                if (Input.GetKey(KeyCode.Escape))
+                {
+                    gameStatus = GameStatusSet.Paused;
+                    // TODO display pause menu
+                }
                 break;
             case GameStatusSet.Paused:
                 if (Input.GetKey(KeyCode.Escape))
                 {
-                    // TODO pause menu
+                    // TODO close pause menu
                 }
                 break;
         }
     }
-
     private void UpdateSpeed()
     {
         if (currentScore <= 10)
         {
-            speed = speed_slow;
+            speedIndex = speed_slow;
         }
-        else if (currentScore <= 100)
+        else if (currentScore <= 100 && !isLevelChanging)
         {
-            speed = speed_mid;
+            SpeedUp(speed_mid);
+
         }
-        else
+        else if (currentScore > 200 && speedIndex < speed_fast)
         {
-            speed = speed_fast;
+            SpeedUp(speed_fast);
         }
+        speed = baseSpeed * speedIndex;
+    }
+
+    private async void SpeedUp(int target)
+    {
+        isLevelChanging = true;
+        while (speedIndex < target)
+        {
+            speedIndex += 0.05f;
+            await UniTask.Delay(500);
+        }
+        isLevelChanging = false;
     }
 
     public void UpdateScore(int delta)
     {
         currentScore += delta;
-    }
-
-    private void FixedUpdate()
-    {
-        timeStick += Time.deltaTime;
-        if (timeStick > 1.0)
-        {
-            int intSpeed = (int)speed;
-            if (gameStatus == GameStatusSet.Playing)
-            {
-                currentHeight += intSpeed / 4;
-            }
-            timeStick = 0;
-        }
     }
 
     public void ResetGame()
@@ -102,19 +114,8 @@ public class GameManager : MonoBehaviour
         {
             ItemManager.SpawnSpite();
             ItemManager.SpawnCloud();
-            int randomDelay;
-            if (speed <= speed_slow)
-            {
-                randomDelay = Random.Range(3000, 4000);
-            }
-            else if (speed <= speed_mid)
-            {
-                randomDelay = Random.Range(2000, 3000);
-            }
-            else
-            {
-                randomDelay = Random.Range(1000, 2000);
-            }
+            int randomDelay = Random.Range(3000, 4000);
+            randomDelay /= (int)speedIndex;
             await UniTask.Delay(randomDelay);
         }
     }
