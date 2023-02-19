@@ -936,6 +936,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 549441985}
   m_CullTransparentMesh: 1
+--- !u!114 &583445513 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4268044728491630845, guid: ef84f82117b265d48ba513de6c012f5b, type: 3}
+  m_PrefabInstance: {fileID: 955678332}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae6e175ec0b959646813e791bac549a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &641866962
 GameObject:
   m_ObjectHideFlags: 0
@@ -1153,6 +1164,7 @@ GameObject:
   - component: {fileID: 748953084}
   - component: {fileID: 748953086}
   - component: {fileID: 748953085}
+  - component: {fileID: 748953087}
   m_Layer: 5
   m_Name: Shadow
   m_TagString: Untagged
@@ -1167,7 +1179,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 748953083}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1177,8 +1189,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 19, y: 253}
-  m_SizeDelta: {x: 230.029, y: 225.266}
+  m_AnchoredPosition: {x: 19, y: 253.00021}
+  m_SizeDelta: {x: 160, y: 160}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &748953085
 MonoBehaviour:
@@ -1218,6 +1230,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 748953083}
   m_CullTransparentMesh: 1
+--- !u!95 &748953087
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 748953083}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bf91ce55a7dc4d44cac9d92a6b5640c1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &800682712
 GameObject:
   m_ObjectHideFlags: 0
@@ -1681,6 +1713,38 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4268044728491630845, guid: ef84f82117b265d48ba513de6c012f5b, type: 3}
+      propertyPath: title
+      value: Sound
+      objectReference: {fileID: 0}
+    - target: {fileID: 4268044728491630845, guid: ef84f82117b265d48ba513de6c012f5b, type: 3}
+      propertyPath: onClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4268044728491630845, guid: ef84f82117b265d48ba513de6c012f5b, type: 3}
+      propertyPath: onClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4268044728491630845, guid: ef84f82117b265d48ba513de6c012f5b, type: 3}
+      propertyPath: onClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1187953364}
+    - target: {fileID: 4268044728491630845, guid: ef84f82117b265d48ba513de6c012f5b, type: 3}
+      propertyPath: onClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4268044728491630845, guid: ef84f82117b265d48ba513de6c012f5b, type: 3}
+      propertyPath: onClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: handleCheckboxUpdate
+      objectReference: {fileID: 0}
+    - target: {fileID: 4268044728491630845, guid: ef84f82117b265d48ba513de6c012f5b, type: 3}
+      propertyPath: onClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UsersetManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4268044728491630845, guid: ef84f82117b265d48ba513de6c012f5b, type: 3}
+      propertyPath: onClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 4651554991271791889, guid: ef84f82117b265d48ba513de6c012f5b, type: 3}
       propertyPath: m_AnchorMin.x
       value: 0.29122397
@@ -1700,6 +1764,18 @@ PrefabInstance:
     - target: {fileID: 4651554991271791889, guid: ef84f82117b265d48ba513de6c012f5b, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4814586156836115897, guid: ef84f82117b265d48ba513de6c012f5b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 583445513}
+    - target: {fileID: 4814586156836115897, guid: ef84f82117b265d48ba513de6c012f5b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ToggleState
+      objectReference: {fileID: 0}
+    - target: {fileID: 4814586156836115897, guid: ef84f82117b265d48ba513de6c012f5b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Checkbox, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 5345785007562905425, guid: ef84f82117b265d48ba513de6c012f5b, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -1736,6 +1812,7 @@ GameObject:
   - component: {fileID: 1111730249}
   - component: {fileID: 1111730248}
   - component: {fileID: 1111730247}
+  - component: {fileID: 1111730250}
   m_Layer: 5
   m_Name: MenuButton
   m_TagString: Untagged
@@ -1857,6 +1934,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1111730245}
   m_CullTransparentMesh: 1
+--- !u!114 &1111730250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1111730245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c280866129c342a4e958e6a3ab3b94d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1129006245
 GameObject:
   m_ObjectHideFlags: 0
@@ -1890,10 +1979,10 @@ RectTransform:
   m_Father: {fileID: 126676111}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 5064}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1129006247
 MonoBehaviour:
@@ -2010,7 +2099,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca131a33dbe86004ea6c0f898da12045, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MusicSetCheckbox: {fileID: 0}
 --- !u!1 &1333143826
 GameObject:
   m_ObjectHideFlags: 0
@@ -2029,7 +2117,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1333143827
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2188,10 +2276,10 @@ RectTransform:
   m_Father: {fileID: 126676111}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 5064}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1466539899
 MonoBehaviour:
@@ -2360,6 +2448,38 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4268044728491630845, guid: ef84f82117b265d48ba513de6c012f5b, type: 3}
+      propertyPath: title
+      value: Music
+      objectReference: {fileID: 0}
+    - target: {fileID: 4268044728491630845, guid: ef84f82117b265d48ba513de6c012f5b, type: 3}
+      propertyPath: onClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4268044728491630845, guid: ef84f82117b265d48ba513de6c012f5b, type: 3}
+      propertyPath: onClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4268044728491630845, guid: ef84f82117b265d48ba513de6c012f5b, type: 3}
+      propertyPath: onClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1187953364}
+    - target: {fileID: 4268044728491630845, guid: ef84f82117b265d48ba513de6c012f5b, type: 3}
+      propertyPath: onClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4268044728491630845, guid: ef84f82117b265d48ba513de6c012f5b, type: 3}
+      propertyPath: onClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: handleCheckboxUpdate
+      objectReference: {fileID: 0}
+    - target: {fileID: 4268044728491630845, guid: ef84f82117b265d48ba513de6c012f5b, type: 3}
+      propertyPath: onClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UsersetManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4268044728491630845, guid: ef84f82117b265d48ba513de6c012f5b, type: 3}
+      propertyPath: onClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 4651554991271791889, guid: ef84f82117b265d48ba513de6c012f5b, type: 3}
       propertyPath: m_AnchorMin.x
       value: 0.29122397
@@ -2379,6 +2499,10 @@ PrefabInstance:
     - target: {fileID: 4651554991271791889, guid: ef84f82117b265d48ba513de6c012f5b, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4814586156836115897, guid: ef84f82117b265d48ba513de6c012f5b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ToggleState
       objectReference: {fileID: 0}
     - target: {fileID: 5345785007562905425, guid: ef84f82117b265d48ba513de6c012f5b, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -2631,7 +2755,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca131a33dbe86004ea6c0f898da12045, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MusicSetCheckbox: {fileID: 0}
 --- !u!1 &1793098116
 GameObject:
   m_ObjectHideFlags: 0
@@ -2646,6 +2769,7 @@ GameObject:
   - component: {fileID: 1793098118}
   - component: {fileID: 1793098121}
   - component: {fileID: 1793098122}
+  - component: {fileID: 1793098123}
   m_Layer: 5
   m_Name: Balloner
   m_TagString: Untagged
@@ -2670,7 +2794,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 314.1045}
+  m_AnchoredPosition: {x: 0, y: 363.507}
   m_SizeDelta: {x: 495.185, y: 661.791}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1793098118
@@ -2690,6 +2814,7 @@ MonoBehaviour:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
   gameManager: {fileID: 0}
+  shadowAnim: {fileID: 748953087}
 --- !u!114 &1793098119
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2775,6 +2900,26 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!95 &1793098123
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1793098116}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f827a319d243330499d59a32181f50e3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &1801257804
 GameObject:
   m_ObjectHideFlags: 0

@@ -14,7 +14,6 @@ public class Checkbox : MonoBehaviour
     [HideLabel] public UnityEvent<string, bool> onClick;
     public string title;
     public Image IconSlot;
-    //public event StateChanged OnStateChanged;
 
     public void Start()
     {
@@ -23,13 +22,7 @@ public class Checkbox : MonoBehaviour
         onClick.RemoveAllListeners();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    public void toggleState()
+    public void ToggleState()
     {
         isChecked = !isChecked;
 

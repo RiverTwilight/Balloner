@@ -174,9 +174,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1656425049987146784}
         m_TargetAssemblyTypeName: Checkbox, Assembly-CSharp
-        m_MethodName: toggleState
+        m_MethodName: ToggleState
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

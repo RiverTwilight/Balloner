@@ -20,8 +20,6 @@ public class MainMenu : MonoBehaviour
     {
         show = !show;
 
-        Debug.Log(show);
-
         if (show)
         {
             dialogAnimator.Play("OpenDialog", 0);

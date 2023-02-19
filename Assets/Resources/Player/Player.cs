@@ -16,10 +16,17 @@ public class Player : MonoBehaviour
     public Bounds ballonBounds;
     public GameManager gameManager;
 
+    public Animator shadowAnim;
+
     void Start()
     {
         gameManager = GameObject.Find("Context").GetComponent<GameManager>();
         gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 315, 0);
+
+        Animator ballonerAnim = gameObject.GetComponent<Animator>();
+        ballonerAnim.Play("Floating");
+        shadowAnim.Play("ShadowFloating");
+
     }
 
     void Update()
