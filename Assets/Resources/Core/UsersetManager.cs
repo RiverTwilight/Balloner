@@ -19,6 +19,7 @@ public class UsersetManager : MonoBehaviour
     {
         if (PlayerPrefs.GetInt("Initialized") != 1)
         {
+            Debug.Log("First Loading");
             InitializeSetting();
         }
         InitiializeList();
@@ -26,23 +27,10 @@ public class UsersetManager : MonoBehaviour
 
     public void handleCheckboxUpdate(string title, bool state)
     {
+        Debug.Log("Set" + title + "to" + state);
         PlayerPrefs.SetInt(title, state ? 1 : 0);
-        switch (title)
-        {
-            case "EnableSound":
-                // todo
-                break;
-            case "EnableMusic":
-                if (!state)
-                {
-                    AudioManager.StopBackgroundMusic();
-                }
-                else
-                {
-                    AudioManager.PlayBackgroundMusic();
-                }
-                break;
-        }
+
+        Debug.Log("Current " + title + "is" + PlayerPrefs.GetFloat(title));
     }
 
     private void InitializeSetting()
@@ -54,8 +42,8 @@ public class UsersetManager : MonoBehaviour
 
     private void InitiializeList()
     {
-        SoundSetCheckbox.GetComponent<Checkbox>().ForceSetState(PlayerPrefs.GetFloat("EnableSound") == 1);
         MusicSetCheckbox.GetComponent<Checkbox>().ForceSetState(PlayerPrefs.GetFloat("EnableMusic") == 1);
+        SoundSetCheckbox.GetComponent<Checkbox>().ForceSetState(PlayerPrefs.GetFloat("EnableSound") == 1);
     }
 
     //void Update()

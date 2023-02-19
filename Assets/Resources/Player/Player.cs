@@ -61,7 +61,7 @@ public class Player : MonoBehaviour
             {
                 Debug.Log("Collected");
 
-                if (PlayerPrefs.GetInt("EnableMusic") == 1)
+                if (PlayerPrefs.GetInt("EnableSound") == 1)
                 {
                     AudioManager.PlaySoundEffect(item.itemType);
                 }
