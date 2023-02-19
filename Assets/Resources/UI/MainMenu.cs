@@ -4,24 +4,32 @@ using System.Collections;
 public class MainMenu : MonoBehaviour
 {
     private bool show = false;
+    public Animator dialogAnimator;
 
     void Start()
     {
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
     }
 
     public void openDialog()
     {
         show = true;
-
-        gameObject.SetActive(true);
     }
 
     public void toggleDialog()
     {
         show = !show;
 
-        gameObject.SetActive(show);
+        Debug.Log(show);
+
+        if (show)
+        {
+            dialogAnimator.Play("OpenDialog", 0);
+        }
+        else
+        {
+            dialogAnimator.Play("CloseDialog", 0);
+        }
     }
 
     void Update()

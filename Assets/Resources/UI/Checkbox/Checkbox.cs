@@ -2,18 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using Sirenix.OdinInspector;
 
 public class Checkbox : MonoBehaviour
 {
     public Sprite checkedImage;
     public Sprite uncheckedImage;
     public bool isChecked;
+    [HideLabel] public UnityEvent<string, bool> onClick;
+    public string title;
+    public Image IconSlot;
+    //public event StateChanged OnStateChanged;
 
-    void Start()
+    public void Start()
     {
         isChecked = false;
-        gameObject.GetComponent<Image>().sprite = uncheckedImage;
+        IconSlot.sprite = uncheckedImage;
+        onClick.RemoveAllListeners();
     }
 
     // Update is called once per frame
@@ -25,13 +32,16 @@ public class Checkbox : MonoBehaviour
     public void toggleState()
     {
         isChecked = !isChecked;
+
         if (isChecked)
         {
-            gameObject.GetComponent<Image>().sprite = checkedImage;
+            IconSlot.sprite = checkedImage;
         }
         else
         {
-            gameObject.GetComponent<Image>().sprite = uncheckedImage;
+            IconSlot.sprite = uncheckedImage;
         }
+
+        onClick.Invoke(title, isChecked);
     }
 }
