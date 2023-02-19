@@ -87,7 +87,7 @@ public class ItemManager : SingletonMonoBehavior<ItemManager>
     {
         float randomX = Random.Range(0, screenWidth);
 
-        var spiteObj = Instantiate(Spite_Prefab, new Vector3(randomX, 2700, 0), Quaternion.identity, SpiteContainer.transform);
+        var spiteObj = Instantiate(Spite_Prefab, new Vector3(randomX, 3000, 0), Quaternion.identity, SpiteContainer.transform);
 
         await UniTask.DelayFrame(0);
 

@@ -61,6 +61,11 @@ public class Player : MonoBehaviour
             {
                 Debug.Log("Collected");
 
+                if (PlayerPrefs.GetInt("EnableMusic") == 1)
+                {
+                    AudioManager.PlaySoundEffect(item.itemType);
+                }
+
                 switch (item.itemType)
                 {
                     case ItemSet.Coin_1:
@@ -96,7 +101,7 @@ public class Player : MonoBehaviour
             if (ballonBounds.Intersects(actualSpiteBounds))
             {
                 Debug.Log("Colided");
-                AudioManager.stopBackgroundMusic();
+                AudioManager.StopBackgroundMusic();
                 gameManager.ResetGame();
                 ItemManager.Instance.SpitesQueue.Clear();
                 ItemManager.Instance.ItemQueue.Clear();

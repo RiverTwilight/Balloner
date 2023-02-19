@@ -110,6 +110,8 @@ public class GameManager : MonoBehaviour
     {
         gameStatus = GameStatusSet.Playing;
 
+        await UniTask.Delay(1000);
+
         while (true)
         {
             ItemManager.SpawnSpite();

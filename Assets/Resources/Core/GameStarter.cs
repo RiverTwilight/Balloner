@@ -38,7 +38,7 @@ public class GameStarter : MonoBehaviour
                 Ground.DOAnchorPosY(1000, landDownDelay).SetEase(Ease.InCubic);
                 Mountain.DOAnchorPosY(-1000, mountainDownDelay).SetEase(Ease.InCubic);
                 shakeHintText = false;
-                AudioManager.playBackgroundMusic();
+                AudioManager.PlayBackgroundMusic();
                 await UniTask.DelayFrame(0);
                 Context.GetComponent<GameManager>().StartGame();
             }

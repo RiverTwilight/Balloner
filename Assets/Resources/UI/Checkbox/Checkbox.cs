@@ -12,6 +12,7 @@ public class Checkbox : MonoBehaviour
     public Sprite uncheckedImage;
     public bool isChecked;
     [HideLabel] public UnityEvent<string, bool> onClick;
+    [HideLabel] public UnityEvent<string> GetDefaultValue;
     public string title;
     public Image IconSlot;
 
@@ -20,6 +21,12 @@ public class Checkbox : MonoBehaviour
         isChecked = false;
         IconSlot.sprite = uncheckedImage;
         onClick.RemoveAllListeners();
+    }
+
+    public void ForceSetState(bool state)
+    {
+        isChecked = state;
+        ToggleState();
     }
 
     public void ToggleState()

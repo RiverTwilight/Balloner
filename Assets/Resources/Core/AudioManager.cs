@@ -12,7 +12,11 @@ public class AudioManager : MonoBehaviour
     [Title("Music")]
     public AudioClip[] musicClips;
 
+    [Title("Sound")]
+    public AudioClip coindClips;
+
     AudioSource musicSource;
+    AudioSource soundSource;
 
     private void Awake()
     {
@@ -21,9 +25,10 @@ public class AudioManager : MonoBehaviour
         //DontDestroyOnLoad(gameObject);
 
         musicSource = gameObject.AddComponent<AudioSource>();
+        soundSource = gameObject.AddComponent<AudioSource>();
     }
 
-    public static async void playBackgroundMusic()
+    public static async void PlayBackgroundMusic()
     {
         int index = Random.Range(0, current.musicClips.Length);
 
@@ -35,11 +40,24 @@ public class AudioManager : MonoBehaviour
         current.musicSource.Play();
     }
 
-    public static void stopBackgroundMusic()
+    public static void StopBackgroundMusic()
     {
         if (current.musicSource != null)
         {
             current.musicSource.Stop();
+        }
+    }
+
+    public static void PlaySoundEffect(ItemSet title)
+    {
+        switch (title)
+        {
+            case ItemSet.Coin_1:
+                current.soundSource.PlayOneShot(current.coindClips);
+                break;
+            default:
+                Debug.LogWarning("Invalid sound effect title: " + title);
+                break;
         }
     }
 }
