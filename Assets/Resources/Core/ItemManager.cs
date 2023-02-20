@@ -4,6 +4,8 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 using UnityEngine.Events;
 using Cysharp.Threading.Tasks;
+using System;
+using Random = UnityEngine.Random;
 
 public class ItemManager : SingletonMonoBehavior<ItemManager>
 {
@@ -20,6 +22,9 @@ public class ItemManager : SingletonMonoBehavior<ItemManager>
     public GameObject NearCloudContainer;
     public GameObject SpiteContainer;
     public GameObject CoinContainer;
+
+    private SyncItemFactory coinSpawnFlow;
+    private SyncItemFactory spiteSpawnFlow;
 
     public List<Item> SpitesQueue;
     public List<Item> ItemQueue;
@@ -45,6 +50,31 @@ public class ItemManager : SingletonMonoBehavior<ItemManager>
         }
     }
 
+    public class SyncItemFactory
+    {
+        private float coinSpawnStick = -3f;
+        public Action onSpawned;
+        public float offset;
+
+        public SyncItemFactory(Action SpawnFunction, float SpawnIntervalOffset)
+        {
+            onSpawned = SpawnFunction;
+            offset = SpawnIntervalOffset;
+        }
+
+        public void SpawnSyncItem(GameManager gameManager)
+        {
+            coinSpawnStick += Time.deltaTime;
+
+            if (coinSpawnStick > (50f + offset) / gameManager.speed)
+            {
+                onSpawned?.Invoke(); // invoke the callback if it's not null
+                coinSpawnStick = 0;
+            }
+        }
+    }
+
+
     void Start()
     {
         screenWidth = Screen.width;
@@ -53,6 +83,9 @@ public class ItemManager : SingletonMonoBehavior<ItemManager>
 
         SpitesQueue = new List<Item>();
         ItemQueue = new List<Item>();
+
+        coinSpawnFlow = new SyncItemFactory(SpawnCoin, -5f);
+        spiteSpawnFlow = new SyncItemFactory(SpawnSpite, 0);
     }
 
     private void Update()
@@ -60,25 +93,18 @@ public class ItemManager : SingletonMonoBehavior<ItemManager>
         switch (GetComponent<GameManager>().gameStatus)
         {
             case GameStatusSet.Playing:
-                SpawnCoinFlow();
+                var gameManager = GetComponent<GameManager>();
+
+                spiteSpawnFlow.SpawnSyncItem(gameManager);
+                coinSpawnFlow.SpawnSyncItem(gameManager);
+
                 break;
             case GameStatusSet.Paused:
                 if (Input.GetKey(KeyCode.Escape))
                 {
-                    // TODO pause menu
+                    Debug.Log("Paused");
                 }
                 break;
-        }
-    }
-
-    private void SpawnCoinFlow()
-    {
-        coinSpwanStick += Time.deltaTime;
-        var gameManager = GetComponent<GameManager>();
-        if (coinSpwanStick > (gameManager.speed + 2f) - gameManager.speed)
-        {
-            SpawnCoin();
-            coinSpwanStick = 0;
         }
     }
 

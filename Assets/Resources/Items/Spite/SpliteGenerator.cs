@@ -55,7 +55,7 @@ public class SpliteGenerator : MoveableItem<CloudController>
 
         spitePosition.self = transform;
 
-        spitePosition.itemSize = spiteRect.size;
+        spitePosition.itemSize = new Vector2(spiteRect.size.x * 0.9f, spiteRect.size.y * 0.9f); // Not using actuall size but smaller
 
         Debug.Log(spitePosition.itemSize);
     }

@@ -74,7 +74,6 @@ public class GameManager : MonoBehaviour
         else if (currentScore <= 100 && !isLevelChanging)
         {
             SpeedUp(speed_mid);
-
         }
         else if (currentScore > 200 && speedIndex < speed_fast)
         {
@@ -114,7 +113,6 @@ public class GameManager : MonoBehaviour
 
         while (true)
         {
-            ItemManager.SpawnSpite();
             ItemManager.SpawnCloud();
             int randomDelay = Random.Range(3000, 4000);
             randomDelay /= (int)speedIndex;
