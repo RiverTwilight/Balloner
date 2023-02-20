@@ -8,26 +8,40 @@ using DG.Tweening;
 public class TimeManager : MonoBehaviour
 {
     public bool isNight = false;
+    public bool reachCloudsea = false;
     public bool switchLocked = false;
     [Range(10, 1000)]
     public int switchInterval = 100;
+    public int currentHeight;
+
+    public GameManager gameManager;
 
     public GameObject NightBackground;
     public GameObject DayBackground;
+    public GameObject FarCloudsea;
+    public GameObject NearCloudsea;
+
     public GameObject StarSky;
 
     public GameObject Star_Prefab;
 
     // Start is called before the first frame update
-    //void Start()
-    //{
-    //    NightBackground.GetComponent<Image>().CrossFadeAlpha(0, 0f, false);
-    //}
+    void Start()
+    {
+        gameManager = gameObject.GetComponent<GameManager>();
+    }
 
     //// Update is called once per frame
     void Update()
     {
+        currentHeight = gameManager.currentHeight;
+
         SwitchTime();
+
+        if (currentHeight > 50 && !reachCloudsea)
+        {
+            PlayCrossCloud();
+        }
     }
 
     public async void SwitchNight()
@@ -70,7 +84,6 @@ public class TimeManager : MonoBehaviour
 
     public void SwitchTime()
     {
-        int currentHeight = gameObject.GetComponent<GameManager>().currentHeight;
 
         if (currentHeight > switchInterval && currentHeight % switchInterval > switchInterval / 2)
         {
@@ -91,5 +104,12 @@ public class TimeManager : MonoBehaviour
             }
             switchLocked = true;
         }
+    }
+
+    public void PlayCrossCloud()
+    {
+        reachCloudsea = true;
+        FarCloudsea.SetActive(true);
+        NearCloudsea.SetActive(true);
     }
 }

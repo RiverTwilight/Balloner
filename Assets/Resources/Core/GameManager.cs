@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         ItemManager = GetComponent<ItemManager>();
+        Application.targetFrameRate = 60;
     }
 
     void Update()
@@ -118,5 +119,11 @@ public class GameManager : MonoBehaviour
             randomDelay /= (int)speedIndex;
             await UniTask.Delay(randomDelay);
         }
+    }
+
+    public void HandlePause()
+    {
+        Time.timeScale = 0f; // Pause game
+        Debug.Log("User pressed pause button");
     }
 }

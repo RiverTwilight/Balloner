@@ -14,8 +14,12 @@ public class GameStarter : MonoBehaviour
     public RectTransform Ground;
     public RectTransform BallonShadow;
     public RectTransform Mountain;
+
+    [Title("In-game UI Objects")]
     public CanvasGroup Score;
     public CanvasGroup HintText;
+    public GameObject PauseButton;
+
     public GameObject Context;
 
     [Title("Movement")]
@@ -37,7 +41,10 @@ public class GameStarter : MonoBehaviour
                 BallonShadow.DOScale(new Vector3(0, 0, 1), 3);
                 Ground.DOAnchorPosY(1000, landDownDelay).SetEase(Ease.InCubic);
                 Mountain.DOAnchorPosY(-1000, mountainDownDelay).SetEase(Ease.InCubic);
+
+                PauseButton.SetActive(true);
                 shakeHintText = false;
+
                 if (PlayerPrefs.GetInt("EnableMusic") == 1)
                 {
                     AudioManager.PlayBackgroundMusic();

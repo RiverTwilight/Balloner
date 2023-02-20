@@ -7,9 +7,9 @@ public class MoveableItem<T> : MonoBehaviour where T : MonoBehaviour
 {
     [ReadOnly] public float customSpeed = 0;
 
+    [Button]
     public void Move()
     {
-
         var rectTransform = gameObject.GetComponent<RectTransform>();
 
         // 锚点统一设置在底部
