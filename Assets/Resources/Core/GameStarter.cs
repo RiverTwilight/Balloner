@@ -47,6 +47,7 @@ public class GameStarter : MonoBehaviour
 
                 if (PlayerPrefs.GetInt("EnableMusic") == 1)
                 {
+                    Debug.Log("Playyyyy");
                     AudioManager.PlayBackgroundMusic();
                 }
                 await UniTask.DelayFrame(0);

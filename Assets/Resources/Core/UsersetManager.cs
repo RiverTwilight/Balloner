@@ -17,20 +17,26 @@ public class UsersetManager : MonoBehaviour
 
     void Start()
     {
-        if (PlayerPrefs.GetInt("Initialized") != 1)
+        if (PlayerPrefs.GetInt("Initialized") == 1)
+        {
+            Debug.Log("Read Localized");
+
+            MusicSetCheckbox.GetComponent<Checkbox>().ForceSetState(PlayerPrefs.GetInt("EnableMusic") == 1);
+            SoundSetCheckbox.GetComponent<Checkbox>().ForceSetState(PlayerPrefs.GetInt("EnableSound") == 1);
+        }
+        else
         {
             Debug.Log("First Loading");
             InitializeSetting();
+            InitiializeList();
         }
-        InitiializeList();
     }
 
     public void handleCheckboxUpdate(string title, bool state)
     {
         Debug.Log("Set" + title + "to" + state);
         PlayerPrefs.SetInt(title, state ? 1 : 0);
-
-        Debug.Log("Current " + title + "is" + PlayerPrefs.GetFloat(title));
+        Debug.Log("Current " + title + "is" + PlayerPrefs.GetInt(title));
     }
 
     private void InitializeSetting()
@@ -42,8 +48,8 @@ public class UsersetManager : MonoBehaviour
 
     private void InitiializeList()
     {
-        MusicSetCheckbox.GetComponent<Checkbox>().ForceSetState(PlayerPrefs.GetFloat("EnableMusic") == 1);
-        SoundSetCheckbox.GetComponent<Checkbox>().ForceSetState(PlayerPrefs.GetFloat("EnableSound") == 1);
+        MusicSetCheckbox.GetComponent<Checkbox>().ForceSetState(true);
+        SoundSetCheckbox.GetComponent<Checkbox>().ForceSetState(true);
     }
 
     //void Update()
