@@ -1685,7 +1685,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &883116498
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2348,8 +2348,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca131a33dbe86004ea6c0f898da12045, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SoundSetCheckbox: {fileID: 433125716}
-  MusicSetCheckbox: {fileID: 536824046}
+  SoundSetCheckbox: {fileID: 536824046}
+  MusicSetCheckbox: {fileID: 433125716}
 --- !u!1 &1333143826
 GameObject:
   m_ObjectHideFlags: 0
@@ -3168,6 +3168,8 @@ MonoBehaviour:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
   gameManager: {fileID: 0}
+  ballonTransform: {fileID: 0}
+  ballonSize: {x: 0, y: 0}
   shadowAnim: {fileID: 748953087}
 --- !u!114 &1793098119
 MonoBehaviour:

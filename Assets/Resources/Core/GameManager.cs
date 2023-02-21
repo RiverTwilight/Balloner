@@ -28,7 +28,16 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         ItemManager = GetComponent<ItemManager>();
-        Application.targetFrameRate = 60;
+        if (SystemInfo.deviceType == DeviceType.Handheld)
+        {
+            // Set target FPS to 90 for mobile devices
+            Application.targetFrameRate = 90;
+        }
+        else
+        {
+            // Set target FPS to 300 for desktop devices
+            Application.targetFrameRate = 300;
+        }
     }
 
     void Update()
@@ -72,11 +81,11 @@ public class GameManager : MonoBehaviour
         {
             speedIndex = speed_slow;
         }
-        else if (currentScore <= 100 && !isLevelChanging)
+        else if (currentScore <= 50 && !isLevelChanging)
         {
             SpeedUp(speed_mid);
         }
-        else if (currentScore > 200 && speedIndex < speed_fast)
+        else if (currentScore > 80 && speedIndex < speed_fast)
         {
             SpeedUp(speed_fast);
         }

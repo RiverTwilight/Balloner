@@ -20,7 +20,6 @@ public class UsersetManager : MonoBehaviour
         if (PlayerPrefs.GetInt("Initialized") == 1)
         {
             Debug.Log("Read Localized");
-
             MusicSetCheckbox.GetComponent<Checkbox>().ForceSetState(PlayerPrefs.GetInt("EnableMusic") == 1);
             SoundSetCheckbox.GetComponent<Checkbox>().ForceSetState(PlayerPrefs.GetInt("EnableSound") == 1);
         }

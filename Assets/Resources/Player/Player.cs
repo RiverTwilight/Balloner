@@ -15,6 +15,9 @@ public class Player : MonoBehaviour
     public GameObject ballon;
     public Bounds ballonBounds;
     public GameManager gameManager;
+    public RectTransform ballonTransform;
+    public Vector2 ballonSize;
+
 
     public Animator shadowAnim;
 
@@ -26,6 +29,9 @@ public class Player : MonoBehaviour
         Animator ballonerAnim = gameObject.GetComponent<Animator>();
         ballonerAnim.Play("Floating");
         shadowAnim.Play("ShadowFloating");
+
+        ballonTransform = GetComponent<RectTransform>();
+        ballonSize = ballonTransform.rect.size;
 
     }
 
@@ -137,21 +143,22 @@ public class Player : MonoBehaviour
                     //Debug.Log($"Touch: {touchEndPosition.x}");
                     //Debug.Log($"Screen: {Screen.width}");
                     //Debug.Log($"Ballon: {transform.localPosition.x}");
-                    if (touchEndPosition.x <= Screen.width - 50 && touchEndPosition.x >= 50)
+                    if (touchEndPosition.x <= Screen.width - ballonSize.x / 4 && touchEndPosition.x >= ballonSize.x / 4)
                     {
+                        // Touch in the screen
                         transform.localPosition = new Vector3((touchEndPosition.x - (Screen.width / 2)) * 2, v.y, v.z);
                     }
-                    else
-                    {
-                        if (touchEndPosition.x > Screen.width - 100)
-                        {
-                            transform.localPosition = new Vector3((Screen.width / 2 - 50) * 2, v.y, v.z);
-                        }
-                        else
-                        {
-                            transform.localPosition = new Vector3((-(Screen.width / 2) + 50) * 2, v.y, v.z);
-                        }
-                    }
+                    //else
+                    //{
+                    //    if (touchEndPosition.x > Screen.width - 100)
+                    //    {
+                    //        transform.localPosition = new Vector3((Screen.width / 2 - 50) * 2, v.y, v.z);
+                    //    }
+                    //    else
+                    //    {
+                    //        transform.localPosition = new Vector3((-(Screen.width / 2) + 50) * 2, v.y, v.z);
+                    //    }
+                    //}
                 }
             }
         }
