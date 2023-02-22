@@ -4,15 +4,19 @@ using UnityEngine;
 using UnityEngine.UI;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using Sirenix.OdinInspector;
 
 public class TimeManager : MonoBehaviour
 {
+    [Title("Time Status")]
     public bool isNight = false;
-    public bool reachCloudsea = false;
-    public bool switchLocked = false;
+    [ReadOnly] public bool reachCloudsea = false;
+    [ReadOnly] public bool switchLocked = false;
+
     [Range(10, 1000)]
     public int switchInterval = 100;
     public int currentHeight;
+    public int cloudseaHeight;
 
     public GameManager gameManager;
 
@@ -38,7 +42,7 @@ public class TimeManager : MonoBehaviour
 
         SwitchTime();
 
-        if (currentHeight > 50 && !reachCloudsea)
+        if (currentHeight > cloudseaHeight && !reachCloudsea)
         {
             PlayCrossCloud();
         }
@@ -109,7 +113,8 @@ public class TimeManager : MonoBehaviour
     public void PlayCrossCloud()
     {
         reachCloudsea = true;
-        FarCloudsea.SetActive(true);
         NearCloudsea.SetActive(true);
+        FarCloudsea.SetActive(true);
+        FarCloudsea.GetComponent<CanvasGroup>().DOFade(1, 8f);
     }
 }

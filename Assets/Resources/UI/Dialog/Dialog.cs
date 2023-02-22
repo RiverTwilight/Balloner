@@ -1,14 +1,18 @@
 using UnityEngine;
 using System.Collections;
+using Sirenix.OdinInspector;
+using UnityEngine.Events;
 
-public class MainMenu : MonoBehaviour
+public class Dialog : MonoBehaviour
 {
     private bool show = false;
     public Animator dialogAnimator;
+    [HideLabel] public UnityEvent<string, bool> onDialogOpend;
+
 
     void Start()
     {
-        //gameObject.SetActive(false);
+
     }
 
     public void openDialog()
@@ -16,6 +20,7 @@ public class MainMenu : MonoBehaviour
         show = true;
     }
 
+    [Button]
     public void toggleDialog()
     {
         show = !show;

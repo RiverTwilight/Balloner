@@ -17,7 +17,7 @@ AnimatorStateMachine:
     m_Position: {x: -130, y: 330, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 8829057156563922717}
-    m_Position: {x: 0, y: 190, z: 0}
+    m_Position: {x: 0, y: 220, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -82,7 +82,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MainMenu
+  m_Name: Dialog
   serializedVersion: 5
   m_AnimatorParameters: []
   m_AnimatorLayers:

@@ -10,20 +10,19 @@ public class Checkbox : MonoBehaviour
 {
     public Sprite checkedImage;
     public Sprite uncheckedImage;
-    public bool isChecked;
+    public bool isChecked = false;
     [HideLabel] public UnityEvent<string, bool> onClick;
     public string title;
     public Image IconSlot;
 
     public void Start()
     {
-        isChecked = false;
-        IconSlot.sprite = uncheckedImage;
         onClick.RemoveAllListeners();
     }
 
     public void ForceSetState(bool state)
     {
+        Debug.Log("Force Set state:" + title + " " + state);
         isChecked = state;
         UpdateSprite();
     }

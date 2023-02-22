@@ -25,6 +25,8 @@ public class GameManager : MonoBehaviour
     public int currentHeight;
     private float timeStick;
 
+    public GameObject PauseMenu;
+
     void Start()
     {
         ItemManager = GetComponent<ItemManager>();
@@ -119,7 +121,7 @@ public class GameManager : MonoBehaviour
     {
         gameStatus = GameStatusSet.Playing;
 
-        await UniTask.Delay(1000);
+        await UniTask.Delay(500);
 
         while (true)
         {
@@ -130,9 +132,22 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void ToggleStatus()
+    {
+        if (gameStatus == GameStatusSet.Playing)
+        {
+            gameStatus = GameStatusSet.Paused;
+            Time.timeScale = 0f;
+        }
+        else
+        {
+            Time.timeScale = 1f;
+            gameStatus = GameStatusSet.Playing;
+        }
+    }
+
     public void HandlePause()
     {
-        Time.timeScale = 0f; // Pause game
-        Debug.Log("User pressed pause button");
+        PauseMenu.GetComponent<Dialog>().toggleDialog();
     }
 }

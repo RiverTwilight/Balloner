@@ -143,7 +143,7 @@ public class Player : MonoBehaviour
                     //Debug.Log($"Touch: {touchEndPosition.x}");
                     //Debug.Log($"Screen: {Screen.width}");
                     //Debug.Log($"Ballon: {transform.localPosition.x}");
-                    if (touchEndPosition.x <= Screen.width - ballonSize.x / 4 && touchEndPosition.x >= ballonSize.x / 4)
+                    if (touchEndPosition.x <= Screen.width - 10 && touchEndPosition.x >= 10)
                     {
                         // Touch in the screen
                         transform.localPosition = new Vector3((touchEndPosition.x - (Screen.width / 2)) * 2, v.y, v.z);
