@@ -19,6 +19,7 @@ public class Player : MonoBehaviour
     public Vector2 ballonSize;
 
     public Animator shadowAnim;
+    public float safeAreaHeight;
 
     void Start()
     {
@@ -32,6 +33,7 @@ public class Player : MonoBehaviour
         ballonTransform = GetComponent<RectTransform>();
         ballonSize = ballonTransform.rect.size;
 
+        safeAreaHeight = Screen.height * 0.9f;
     }
 
     void Update()
@@ -107,6 +109,7 @@ public class Player : MonoBehaviour
             {
                 Debug.Log("Colided");
                 AudioManager.StopBackgroundMusic();
+                gameManager.HandleDeath();
                 gameManager.ResetGame();
                 ItemManager.Instance.SpitesQueue.Clear();
                 ItemManager.Instance.ItemQueue.Clear();
@@ -131,11 +134,13 @@ public class Player : MonoBehaviour
                 float x = touchEndPosition.x - touchStartPosition.x;
                 float y = touchEndPosition.y - touchEndPosition.y;
 
+                Debug.Log(touchEndPosition.y);
+
                 if (Mathf.Abs(x) == 0 && Mathf.Abs(y) == 0)
                 {
                     // direction = "Tapped";
                 }
-                else if (Mathf.Abs(x) > Mathf.Abs(y))
+                else if (Mathf.Abs(x) > Mathf.Abs(y) && touchEndPosition.y < safeAreaHeight)
                 {
                     Vector3 v = transform.localPosition;
 
@@ -144,20 +149,8 @@ public class Player : MonoBehaviour
                     //Debug.Log($"Ballon: {transform.localPosition.x}");
                     if (touchEndPosition.x <= Screen.width - 10 && touchEndPosition.x >= 10)
                     {
-                        // Touch in the screen
                         transform.localPosition = new Vector3((touchEndPosition.x - (Screen.width / 2)) * 2, v.y, v.z);
                     }
-                    //else
-                    //{
-                    //    if (touchEndPosition.x > Screen.width - 100)
-                    //    {
-                    //        transform.localPosition = new Vector3((Screen.width / 2 - 50) * 2, v.y, v.z);
-                    //    }
-                    //    else
-                    //    {
-                    //        transform.localPosition = new Vector3((-(Screen.width / 2) + 50) * 2, v.y, v.z);
-                    //    }
-                    //}
                 }
             }
         }

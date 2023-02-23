@@ -23,6 +23,8 @@ public class GameManager : MonoBehaviour
     [ReadOnly] public bool isLevelChanging = false;
     public int currentScore;
     public int currentHeight;
+    public int highestRecord;
+
     private float timeStick;
 
     public GameObject PauseMenu;
@@ -32,19 +34,18 @@ public class GameManager : MonoBehaviour
         ItemManager = GetComponent<ItemManager>();
         if (SystemInfo.deviceType == DeviceType.Handheld)
         {
-            // Set target FPS to 90 for mobile devices
             Application.targetFrameRate = 90;
         }
         else
         {
-            // Set target FPS to 300 for desktop devices
             Application.targetFrameRate = 300;
         }
+        highestRecord = PlayerPrefs.GetInt("HighestRecord");
     }
 
     void Update()
     {
-        CurrentScoreComp.text = "Score: " + currentScore;
+        CurrentScoreComp.text = (currentScore > highestRecord ? "Highest: " : "Score: ") + currentScore;
 
         switch (gameStatus)
         {
@@ -149,5 +150,16 @@ public class GameManager : MonoBehaviour
     public void HandlePause()
     {
         PauseMenu.GetComponent<Dialog>().toggleDialog();
+    }
+
+    public void HandleDeath()
+    {
+        int originalRecord = PlayerPrefs.GetInt("HighestRecord");
+        if (currentScore > originalRecord)
+        {
+            Debug.Log("New Records");
+            PlayerPrefs.SetInt("HighestRecord", currentScore);
+        }
+        ResetGame();
     }
 }

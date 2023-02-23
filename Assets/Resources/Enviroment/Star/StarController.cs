@@ -34,7 +34,7 @@ public class StarController : MonoBehaviour
     {
         while (true)
         {
-            int randomDelay = Random.Range(600, 800);
+            int randomDelay = Random.Range(1500, 2000);
             canvasGroup.DOFade(0, 0.6f);
             await UniTask.Delay(randomDelay);
             canvasGroup.DOFade(1, 0.6f);
