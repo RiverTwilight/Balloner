@@ -18,7 +18,6 @@ public class Player : MonoBehaviour
     public RectTransform ballonTransform;
     public Vector2 ballonSize;
 
-
     public Animator shadowAnim;
 
     void Start()

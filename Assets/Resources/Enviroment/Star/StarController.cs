@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Sirenix.OdinInspector;
+using Cysharp.Threading.Tasks;
+using DG.Tweening;
 
 public class StarController : MonoBehaviour
 {
     public List<Sprite> starImages;
+    private CanvasGroup canvasGroup;
 
-    // Start is called before the first frame update
     [Button]
     void Start()
     {
@@ -22,11 +24,21 @@ public class StarController : MonoBehaviour
         var randomPosX = Random.Range(10,parentSize.x);
 
         gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(randomPosX, randomPosY, 0);
+
+        canvasGroup = gameObject.GetComponent<CanvasGroup>();
+
+        Twinkle();
     }
 
-    // Update is called once per frame
-    //void Update()
-    //{
-        
-    //}
+    async public void Twinkle()
+    {
+        while (true)
+        {
+            int randomDelay = Random.Range(600, 800);
+            canvasGroup.DOFade(0, 0.6f);
+            await UniTask.Delay(randomDelay);
+            canvasGroup.DOFade(1, 0.6f);
+            await UniTask.Delay(randomDelay);
+        }
+    }
 }

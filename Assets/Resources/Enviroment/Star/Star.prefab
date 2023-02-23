@@ -91,10 +91,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   starImages:
-  - {fileID: 21300000, guid: af574b6401fc55744a4e61622e28fcbe, type: 3}
-  - {fileID: 21300000, guid: 93cf69ae0fcc36f46925beab7cfc99ad, type: 3}
-  - {fileID: 21300000, guid: 6085b6a735814654cb18d618d00d3ed8, type: 3}
-  - {fileID: 21300000, guid: 716d245a25d459f4282d2491f5f1216f, type: 3}
+  - {fileID: 21300000, guid: 0ee5dab0d87c5fb41a19a4bddf8b3396, type: 3}
+  - {fileID: 21300000, guid: a04895067e8dc4a40bb35ca3df5eca2b, type: 3}
+  - {fileID: 21300000, guid: 89727e4c8e731d04bae0a191b1029bb6, type: 3}
 --- !u!225 &6429880185167354801
 CanvasGroup:
   m_ObjectHideFlags: 0
