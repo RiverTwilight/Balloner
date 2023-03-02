@@ -1256,6 +1256,7 @@ MonoBehaviour:
   Spite_Prefab: {fileID: 598970924790743705, guid: 56d3dd2f23d2fd3478c08dc431735878, type: 3}
   Cloud_Prefab: {fileID: 8529101090127670617, guid: f823733856e3f6c4aab5b283aee95e1b, type: 3}
   Coin_Prefab: {fileID: 212498675229942584, guid: af147f12f1b79234d84e163141837e16, type: 3}
+  Magnet_Prefab: {fileID: 2439213280594455538, guid: 28a6ba98c392f314fbef95f691baf286, type: 3}
   screenWidth: 0
   screenHeight: 0
   safeScreenHeight: 0
@@ -1263,7 +1264,7 @@ MonoBehaviour:
   FarCloudContainer: {fileID: 54179922}
   NearCloudContainer: {fileID: 176375848}
   SpiteContainer: {fileID: 1584000522}
-  CoinContainer: {fileID: 1912521208}
+  CollectableItemContainer: {fileID: 1912521208}
 --- !u!4 &800682714
 Transform:
   m_ObjectHideFlags: 0
@@ -3338,7 +3339,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1912521209}
   m_Layer: 5
-  m_Name: Coins
+  m_Name: Collectable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
