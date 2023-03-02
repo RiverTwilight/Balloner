@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CloudseaController : MoveableItem<MonoBehaviour>
+public class CloudseaController : MoveableItem
 {
     public bool autoDestory;
     public int targetY;

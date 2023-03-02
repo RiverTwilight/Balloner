@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Sirenix.OdinInspector;
 
-public class SpliteGenerator : MoveableItem<CloudController>
+public class SpliteGenerator : MoveableItem
 {
     public GameObject group;
     public Sprite spiteImage;

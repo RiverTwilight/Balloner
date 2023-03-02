@@ -9,10 +9,13 @@ using Random = UnityEngine.Random;
 
 public class ItemManager : SingletonMonoBehavior<ItemManager>
 {
+    [Title("Prefabs")]
     public GameObject Spite_Prefab;
     public GameObject Cloud_Prefab;
     public GameObject Coin_Prefab;
+    public GameObject Magnet_Prefab;
 
+    [Title("Device Specefication")]
     public float screenWidth;
     public float screenHeight;
     public float safeScreenHeight;
@@ -21,21 +24,19 @@ public class ItemManager : SingletonMonoBehavior<ItemManager>
     public GameObject FarCloudContainer;
     public GameObject NearCloudContainer;
     public GameObject SpiteContainer;
-    public GameObject CoinContainer;
+    public GameObject CollectableItemContainer;
 
-    private SyncItemFactory coinSpawnFlow;
+    private SyncItemFactory collectableSpawnFlow;
     private SyncItemFactory spiteSpawnFlow;
 
     public List<Item> SpitesQueue;
     public List<Item> ItemQueue;
-    private float coinSpwanStick;
 
     public class Item
     {
         public Transform self;
         public Vector3 itemSize;
         public bool collected = false;
-
         public UnityAction handleDestory;
         public ItemSet itemType;
 
@@ -68,7 +69,7 @@ public class ItemManager : SingletonMonoBehavior<ItemManager>
 
             if (coinSpawnStick > (50f + offset) / gameManager.speed)
             {
-                onSpawned?.Invoke(); // invoke the callback if it's not null
+                onSpawned?.Invoke();
                 coinSpawnStick = 0;
             }
         }
@@ -84,7 +85,7 @@ public class ItemManager : SingletonMonoBehavior<ItemManager>
         SpitesQueue = new List<Item>();
         ItemQueue = new List<Item>();
 
-        coinSpawnFlow = new SyncItemFactory(SpawnCoin, -5f);
+        collectableSpawnFlow = new SyncItemFactory(SpawnCollectableItem, -5f);
         spiteSpawnFlow = new SyncItemFactory(SpawnSpite, 0);
     }
 
@@ -96,7 +97,7 @@ public class ItemManager : SingletonMonoBehavior<ItemManager>
                 var gameManager = GetComponent<GameManager>();
 
                 spiteSpawnFlow.SpawnSyncItem(gameManager);
-                coinSpawnFlow.SpawnSyncItem(gameManager);
+                collectableSpawnFlow.SpawnSyncItem(gameManager);
 
                 break;
             case GameStatusSet.Paused:
@@ -136,30 +137,41 @@ public class ItemManager : SingletonMonoBehavior<ItemManager>
     }
 
     [Button]
-    public async void SpawnCoin()
+    public async void SpawnCollectableItem()
     {
         float randomX = Random.Range(5, screenWidth - 5);
 
-        var coinObj = Instantiate(Coin_Prefab, new Vector3(randomX, 3000, 0), Quaternion.identity, CoinContainer.transform);
+        int randomIndex = Random.Range(0, 100);
+
+        MoveableItem _collectableObj;
+
+        if (randomIndex < 70)
+        {
+            GameObject collectableObj = Instantiate(Coin_Prefab, new Vector3(randomX, 3000, 0), Quaternion.identity, CollectableItemContainer.transform) as GameObject ;
+             _collectableObj = collectableObj.GetComponent<CoinController>();
+        }
+        else
+        {
+            GameObject collectableObj = Instantiate(Magnet_Prefab, new Vector3(randomX, 3000, 0), Quaternion.identity, CollectableItemContainer.transform) as GameObject ;
+             _collectableObj = collectableObj.GetComponent<MagnetController>();
+        }
 
         await UniTask.DelayFrame(0);
 
-        var _coinObj = coinObj.GetComponent<CoinController>();
-
-        if (_coinObj == null)
+        if (_collectableObj == null)
         {
             return;
         }
 
-        var originalDestory = _coinObj.coinPosition.handleDestory;
+        var originalDestory = _collectableObj._item.handleDestory;
 
-        ItemQueue.Add(_coinObj.coinPosition);
+        ItemQueue.Add(_collectableObj._item);
 
         int coinIndex = ItemQueue.ToArray().Length - 1;
 
-        _coinObj.coinPosition.handleDestory = () =>
+        _collectableObj._item.handleDestory = () =>
         {
-            _coinObj.coinPosition.collected = true;
+            _collectableObj._item.collected = true;
             originalDestory();
         };
     }

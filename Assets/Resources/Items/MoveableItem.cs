@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 
-public class MoveableItem<T> : MonoBehaviour where T : MonoBehaviour
+public class MoveableItem : MonoBehaviour
 {
     [ReadOnly] public float customSpeed = 0;
+    public ItemManager.Item _item;
+
 
     public void Move()
     {
         var rectTransform = gameObject.GetComponent<RectTransform>();
 
-        // 锚点统一设置在底部
+        // 锚锟斤拷统一锟斤拷锟斤拷锟节底诧拷
         Vector3 v = rectTransform.anchoredPosition;
 
         if (v.y < -500)

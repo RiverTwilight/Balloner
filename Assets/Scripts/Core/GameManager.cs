@@ -95,10 +95,10 @@ public class GameManager : MonoBehaviour
         speed = baseSpeed * speedIndex;
     }
 
-    private async void SpeedUp(int target)
+    private async void SpeedUp(int targetIndex)
     {
         isLevelChanging = true;
-        while (speedIndex < target)
+        while (speedIndex < targetIndex)
         {
             speedIndex += 0.05f;
             await UniTask.Delay(500);

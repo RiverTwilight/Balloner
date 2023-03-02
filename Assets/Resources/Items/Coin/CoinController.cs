@@ -4,21 +4,19 @@ using UnityEngine;
 using UnityEngine.UI;
 using Sirenix.OdinInspector;
 
-public class CoinController : MoveableItem<CloudController>
+public class CoinController : MoveableItem
 {
     public Animator animator;
 
-    public ItemManager.Item coinPosition;
-    public ItemSet coinType;
-
     private void Start()
     {
-        coinPosition = new ItemManager.Item(() => Destroy(gameObject), coinType);
+        
+        _item = new ItemManager.Item(() => Destroy(gameObject), Random.Range(0, 100) <= 70 ? ItemSet.Coin_1 : ItemSet.Coin_10);
 
         var coinRect = GetComponent<RectTransform>().rect;
 
-        coinPosition.itemSize = coinRect.size;
-        coinPosition.self = transform;
+        _item.itemSize = coinRect.size;
+        _item.self = transform;
 
         animator.speed = 0.5f;
         animator.Play("Coin");
@@ -26,7 +24,7 @@ public class CoinController : MoveableItem<CloudController>
 
     new public void HandleDestory()
     {
-        coinPosition.handleDestory();
+        _item.handleDestory();
     }
 
     private void FixedUpdate()

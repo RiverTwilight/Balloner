@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Sirenix.OdinInspector;
 
-public class CloudController : MoveableItem<CloudController>
+public class CloudController : MoveableItem
 {
     public List<Sprite> cloudImage;
 

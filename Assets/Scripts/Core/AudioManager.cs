@@ -55,6 +55,9 @@ public class AudioManager : MonoBehaviour
             case ItemSet.Coin_1:
                 current.soundSource.PlayOneShot(current.coindClips);
                 break;
+            case ItemSet.Coin_10:
+                current.soundSource.PlayOneShot(current.coindClips);
+                break;
             default:
                 Debug.LogWarning("Invalid sound effect title: " + title);
                 break;

@@ -61,8 +61,8 @@ public class Player : MonoBehaviour
         for (int i = 0; i < queueLength; i++)
         {
             var item = queue[i];
-            var spiteBounds = item.CreateBounds();
-            var actualSpiteBounds = new Bounds(spiteBounds.center * 2, spiteBounds.size);
+            var itemBound = item.CreateBounds();
+            var actualSpiteBounds = new Bounds(itemBound.center * 2, itemBound.size);
             //Debug.Log($"Spite{spite} [center: {spiteBounds.center} size: {spiteBounds.size}]");
             if (ballonBounds.Intersects(actualSpiteBounds))
             {
@@ -77,6 +77,13 @@ public class Player : MonoBehaviour
                 {
                     case ItemSet.Coin_1:
                         gameManager.UpdateScore(1);
+                        break;
+                    case ItemSet.Coin_10:
+                        gameManager.UpdateScore(10);
+                        break;
+                    case ItemSet.Magnent:
+                        // TODO magnet effect
+                        Debug.Log("Get Magnet");
                         break;
                 }
 

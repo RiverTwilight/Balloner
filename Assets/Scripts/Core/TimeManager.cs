@@ -29,8 +29,7 @@ public class TimeManager : MonoBehaviour
 
     public GameObject Star_Prefab;
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         gameManager = gameObject.GetComponent<GameManager>();
     }
@@ -83,7 +82,6 @@ public class TimeManager : MonoBehaviour
             Instantiate(Star_Prefab, StarSky.transform);
             i++;
         }
-
     }
 
     public void SwitchTime()
