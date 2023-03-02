@@ -1,5 +1,15 @@
-# Balloner
+<p align="center">
+  <a href="https://febook.rene.wang/">
+    <img src="./Assets/Resources/UI/title_1_main.png" width="230">
+  </a>
+</p>
 
-![image](https://i.ibb.co/8MJQJ2R/Screenshot-2023-01-08-210340.png)
 
-Enjoy!
+<h3 align="center">
+  Balloner
+</h3>
+
+<p align="center"> 
+  🎈 A fun, tiny, and rougelike game created with Unity.
+</p>
+
