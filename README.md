@@ -9,7 +9,7 @@
 </h3>
 
 <p align="center"> 
-  🎈 A fun, tiny, and rougelike game created with Unity.
+  🎈 A fun, tiny, and rougelike game created with Unity. | 流浪气球：无尽探索小游戏
 </p>
 
 <p align="center">
@@ -29,7 +29,7 @@
 
 ## How to Play
 
-Try to get coins and height as much as possible! Feel free to explore the infinite sky world from the ground to the space. 
+Try to get coins and height as much as possible! Feel free to explore the infinite sky world from the ground to the space.
 
 No ads, no payments, no bothersome.
 
@@ -37,6 +37,7 @@ No ads, no payments, no bothersome.
 
 -   [ ] Day and night
 -   [ ] More fun items
+-   [ ] More balloon skins.
 
 ## About
 
