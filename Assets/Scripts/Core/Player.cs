@@ -14,31 +14,39 @@ public class Player : MonoBehaviour
 
     public GameObject ballon;
     public Bounds ballonBounds;
-    public GameManager gameManager;
     public RectTransform ballonTransform;
     public Vector2 ballonSize;
-
     public Animator shadowAnim;
     public float safeAreaHeight;
 
+    [Title("Self Component")]
+    private BoxCollider2D boxColider;
+    private CapsuleCollider2D capsuleColider;
+    private RectTransform rectTransform;
+
+    void Awake()
+    {
+        boxColider = GetComponent<BoxCollider2D>();
+        rectTransform = GetComponent<RectTransform>();
+        capsuleColider = GetComponent<CapsuleCollider2D>();
+    }
+
     void Start()
     {
-        gameManager = GameObject.Find("Context").GetComponent<GameManager>();
         gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 315, 0);
 
         Animator ballonerAnim = gameObject.GetComponent<Animator>();
         ballonerAnim.Play("Floating");
         shadowAnim.Play("ShadowFloating");
 
-        ballonTransform = GetComponent<RectTransform>();
-        ballonSize = ballonTransform.rect.size;
+        ballonSize = rectTransform.rect.size;
 
         safeAreaHeight = Screen.height * 0.9f;
     }
 
     void Update()
     {
-        switch (gameManager.gameStatus)
+        switch (GameManager.Instance.gameStatus)
         {
             case GameStatusSet.Playing:
                 Movement();
@@ -50,24 +58,17 @@ public class Player : MonoBehaviour
 
     void CheckCollectableItems()
     {
-        var transform = GetComponent<RectTransform>();
-        var collider = GetComponent<BoxCollider2D>();
+        ballonBounds = new Bounds(boxColider.bounds.center, boxColider.bounds.size);
 
-        ballonBounds = new Bounds(collider.bounds.center * 2, collider.bounds.size * 2);
-
-        List<ItemManager.Item> queue = ItemManager.Instance?.ItemQueue.Where(i => i.self != null).ToList();
+        List<BoundedItem> queue = ItemManager.Instance?.ItemQueue.Where(i => i.self != null).ToList();
         int queueLength = queue.ToArray().Length;
 
         for (int i = 0; i < queueLength; i++)
         {
             var item = queue[i];
             var itemBound = item.CreateBounds();
-            var actualSpiteBounds = new Bounds(itemBound.center * 2, itemBound.size);
-            //Debug.Log($"Spite{spite} [center: {spiteBounds.center} size: {spiteBounds.size}]");
-            if (ballonBounds.Intersects(actualSpiteBounds))
+            if (ballonBounds.Intersects(itemBound))
             {
-                Debug.Log("Collected");
-
                 if (PlayerPrefs.GetInt("EnableSound") == 1)
                 {
                     AudioManager.PlaySoundEffect(item.itemType);
@@ -76,10 +77,10 @@ public class Player : MonoBehaviour
                 switch (item.itemType)
                 {
                     case ItemSet.Coin_1:
-                        gameManager.UpdateScore(1);
+                        GameManager.Instance.UpdateScore(1);
                         break;
                     case ItemSet.Coin_10:
-                        gameManager.UpdateScore(10);
+                        GameManager.Instance.UpdateScore(10);
                         break;
                     case ItemSet.Magnent:
                         // TODO magnet effect
@@ -98,26 +99,23 @@ public class Player : MonoBehaviour
 
     void CheckCollidation()
     {
-        var transform = GetComponent<RectTransform>();
-        var collider = GetComponent<BoxCollider2D>();
-
-        ballonBounds = new Bounds(collider.bounds.center * 2, collider.bounds.size * 2);
+        ballonBounds = new Bounds(boxColider.bounds.center, boxColider.bounds.size);
 
         //Debug.Log($"Ballon [center: {ballonBounds.center} size: {ballonBounds.size}]");
 
-        List<ItemManager.Item> queue = ItemManager.Instance?.SpitesQueue.Where(i => i.self != null).ToList();
+        List<BoundedItem> queue = ItemManager.Instance?.SpitesQueue.Where(i => i.self != null).ToList();
 
         queue.ForEach(spite =>
         {
             var spiteBounds = spite.CreateBounds();
-            var actualSpiteBounds = new Bounds(spiteBounds.center * 2, spiteBounds.size);
-            //Debug.Log($"Spite{spite} [center: {spiteBounds.center} size: {spiteBounds.size}]");
-            if (ballonBounds.Intersects(actualSpiteBounds))
+            // Debug.Log($"Ballon Position: {boxColider.bounds.center}");
+            // Debug.Log($"[center: {spiteBounds.center} size: {spiteBounds.size}]");
+            if (ballonBounds.Intersects(spiteBounds))
             {
                 Debug.Log("Colided");
                 AudioManager.StopBackgroundMusic();
-                gameManager.HandleDeath();
-                gameManager.ResetGame();
+                GameManager.Instance.HandleDeath();
+                GameManager.Instance.ResetGame();
                 ItemManager.Instance.SpitesQueue.Clear();
                 ItemManager.Instance.ItemQueue.Clear();
                 SceneManager.LoadScene("Main");
@@ -160,6 +158,15 @@ public class Player : MonoBehaviour
                     }
                 }
             }
+        }
+        else
+        {
+            float moveSpeed = 1900f * GameManager.Instance.speedIndex;
+            float horizontalInput = Input.GetAxis("Horizontal");
+            Vector3 currentPosition = transform.position;
+            currentPosition.x += horizontalInput * moveSpeed * Time.deltaTime;
+            currentPosition.x = Mathf.Clamp(currentPosition.x, 10, Screen.width - 10);
+            transform.position = currentPosition;
         }
     }
 }

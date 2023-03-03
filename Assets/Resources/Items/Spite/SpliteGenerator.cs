@@ -9,11 +9,11 @@ public class SpliteGenerator : MoveableItem
     public GameObject group;
     public Sprite spiteImage;
 
-    public ItemManager.Item spitePosition;
+    public BoundedItem spitePosition;
 
     private void Start()
     {
-        spitePosition = new ItemManager.Item(() => DestoryGroup(), ItemSet.Spite);
+        spitePosition = new BoundedItem(() => DestoryGroup(), ItemSet.Spite, GetComponent<BoxCollider2D>());
 
         int spiteNum = Random.Range(3, 6);
         GenerateGroup(spiteNum);
@@ -53,11 +53,13 @@ public class SpliteGenerator : MoveableItem
 
         var spiteRect = GetComponent<RectTransform>().rect;
 
+        BoxCollider2D boxCollider = GetComponent<BoxCollider2D>();
+
+        boxCollider.size = new Vector2(spiteRect.size.x, spiteRect.size.y);
+
         spitePosition.self = transform;
 
         spitePosition.itemSize = new Vector2(spiteRect.size.x * 0.9f, spiteRect.size.y * 0.9f); // Not using actuall size but smaller
-
-        Debug.Log(spitePosition.itemSize);
     }
 
     public void DestoryGroup()

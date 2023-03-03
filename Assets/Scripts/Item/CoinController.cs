@@ -11,7 +11,7 @@ public class CoinController : MoveableItem
     private void Start()
     {
         
-        _item = new ItemManager.Item(() => Destroy(gameObject), Random.Range(0, 100) <= 70 ? ItemSet.Coin_1 : ItemSet.Coin_10);
+        _item = new BoundedItem(() => Destroy(gameObject), Random.Range(0, 100) <= 70 ? ItemSet.Coin_1 : ItemSet.Coin_10, GetComponent<BoxCollider2D>());
 
         var coinRect = GetComponent<RectTransform>().rect;
 

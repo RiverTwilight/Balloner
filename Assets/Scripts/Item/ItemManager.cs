@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
-using UnityEngine.Events;
 using Cysharp.Threading.Tasks;
 using System;
 using Random = UnityEngine.Random;
@@ -28,28 +27,8 @@ public class ItemManager : SingletonMonoBehavior<ItemManager>
 
     private SyncItemFactory collectableSpawnFlow;
     private SyncItemFactory spiteSpawnFlow;
-
-    public List<Item> SpitesQueue;
-    public List<Item> ItemQueue;
-
-    public class Item
-    {
-        public Transform self;
-        public Vector3 itemSize;
-        public bool collected = false;
-        public UnityAction handleDestory;
-        public ItemSet itemType;
-
-        public Item(UnityAction handleDestory, ItemSet itemType)
-        {
-            this.handleDestory = handleDestory;
-            this.itemType = itemType;
-        }
-        public Bounds CreateBounds()
-        {
-            return new Bounds(self.position, itemSize);
-        }
-    }
+    public List<BoundedItem> SpitesQueue;
+    public List<BoundedItem> ItemQueue;
 
     public class SyncItemFactory
     {
@@ -75,36 +54,28 @@ public class ItemManager : SingletonMonoBehavior<ItemManager>
         }
     }
 
-
     void Start()
     {
         screenWidth = Screen.width;
         screenHeight = Screen.height;
         safeScreenHeight = screenHeight - 10;
 
-        SpitesQueue = new List<Item>();
-        ItemQueue = new List<Item>();
+        SpitesQueue = new List<BoundedItem>();
+        ItemQueue = new List<BoundedItem>();
 
-        collectableSpawnFlow = new SyncItemFactory(SpawnCollectableItem, -5f);
+        collectableSpawnFlow = new SyncItemFactory(SpawnCollectableItem, -6f);
         spiteSpawnFlow = new SyncItemFactory(SpawnSpite, 0);
     }
 
     private void Update()
     {
-        switch (GetComponent<GameManager>().gameStatus)
+        switch (GameManager.Instance.gameStatus)
         {
             case GameStatusSet.Playing:
-                var gameManager = GetComponent<GameManager>();
+                GameManager gameManager = GameManager.Instance;
 
                 spiteSpawnFlow.SpawnSyncItem(gameManager);
                 collectableSpawnFlow.SpawnSyncItem(gameManager);
-
-                break;
-            case GameStatusSet.Paused:
-                if (Input.GetKey(KeyCode.Escape))
-                {
-                    Debug.Log("Paused");
-                }
                 break;
         }
     }

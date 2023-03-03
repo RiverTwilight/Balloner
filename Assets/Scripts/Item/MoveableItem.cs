@@ -6,7 +6,7 @@ using Sirenix.OdinInspector;
 public class MoveableItem : MonoBehaviour
 {
     [ReadOnly] public float customSpeed = 0;
-    public ItemManager.Item _item;
+    public BoundedItem _item;
 
 
     public void Move()

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using Sirenix.OdinInspector;
 using Cysharp.Threading.Tasks;
 
-public class GameManager : MonoBehaviour
+public class GameManager : SingletonMonoBehavior<GameManager>
 {
     private ItemManager ItemManager;
     public Text CurrentScoreComp;

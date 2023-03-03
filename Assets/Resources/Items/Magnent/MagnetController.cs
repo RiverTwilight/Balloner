@@ -8,7 +8,7 @@ public class MagnetController : MoveableItem
 
     private void Start()
     {
-        _item = new ItemManager.Item(() => Destroy(gameObject), ItemSet.Magnent);
+        _item = new BoundedItem(() => Destroy(gameObject), ItemSet.Magnent, GetComponent<BoxCollider2D>());
 
         var reat = GetComponent<RectTransform>().rect;
 

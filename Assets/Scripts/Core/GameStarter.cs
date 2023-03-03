@@ -19,7 +19,6 @@ public class GameStarter : MonoBehaviour
     public CanvasGroup Score;
     public CanvasGroup HintText;
     public GameObject PauseButton;
-
     public GameObject Context;
 
     [Title("Movement")]
@@ -31,29 +30,43 @@ public class GameStarter : MonoBehaviour
 
     private void Start()
     {
-        GetComponent<InteractableMonoBehavior>().onPointerClick.AddListener(async (eD) =>
+        GetComponent<InteractableMonoBehavior>().onPointerClick.AddListener((eD) =>
         {
-            if (Context.GetComponent<GameManager>().gameStatus == GameStatusSet.Initialized)
-            {
-                UIcanvasGroup.DOFade(0, 0.5f);
-                Score.DOFade(1, 0.5f);
-                Ballon.DOAnchorPosY(700, ballonLiftDelay).SetEase(Ease.InCubic);
-                BallonShadow.DOScale(new Vector3(0, 0, 1), 3);
-                Ground.DOAnchorPosY(1000, landDownDelay).SetEase(Ease.InCubic);
-                Mountain.DOAnchorPosY(-1000, mountainDownDelay).SetEase(Ease.InCubic);
-
-                PauseButton.SetActive(true);
-                shakeHintText = false;
-
-                if (PlayerPrefs.GetInt("EnableMusic") == 1)
-                {
-                    AudioManager.PlayBackgroundMusic();
-                }
-                await UniTask.DelayFrame(0);
-                Context.GetComponent<GameManager>().StartGame();
-            }
+            GameTrigger();
         });
         ShakeHintText();
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown("space"))
+        {
+            GameTrigger();
+        }
+    }
+
+    private async void GameTrigger()
+    {
+        if (Context.GetComponent<GameManager>().gameStatus == GameStatusSet.Initialized)
+        {
+            UIcanvasGroup.DOFade(0, 0.5f);
+            Score.DOFade(1, 0.5f);
+            Ballon.DOAnchorPosY(700, ballonLiftDelay).SetEase(Ease.InCubic);
+            BallonShadow.DOScale(new Vector3(0, 0, 1), 3);
+            Ground.DOAnchorPosY(1000, landDownDelay).SetEase(Ease.InCubic);
+            Mountain.DOAnchorPosY(-1000, mountainDownDelay).SetEase(Ease.InCubic);
+
+            PauseButton.SetActive(true);
+            shakeHintText = false;
+
+            if (PlayerPrefs.GetInt("EnableMusic") == 1)
+            {
+                AudioManager.PlayBackgroundMusic();
+            }
+            
+            await UniTask.DelayFrame(0);
+            Context.GetComponent<GameManager>().StartGame();
+        }
     }
     async public void ShakeHintText()
     {

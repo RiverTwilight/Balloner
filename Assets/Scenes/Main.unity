@@ -827,6 +827,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   customSpeed: 0
+  _item: {fileID: 0}
   autoDestory: 1
   targetY: -1200
 --- !u!225 &431615266
@@ -1265,6 +1266,8 @@ MonoBehaviour:
   NearCloudContainer: {fileID: 176375848}
   SpiteContainer: {fileID: 1584000522}
   CollectableItemContainer: {fileID: 1912521208}
+  SpitesQueue: []
+  ItemQueue: []
 --- !u!4 &800682714
 Transform:
   m_ObjectHideFlags: 0
@@ -3067,6 +3070,7 @@ GameObject:
   - component: {fileID: 1793098121}
   - component: {fileID: 1793098122}
   - component: {fileID: 1793098123}
+  - component: {fileID: 1793098124}
   m_Layer: 5
   m_Name: Balloner
   m_TagString: Untagged
@@ -3110,7 +3114,6 @@ MonoBehaviour:
   ballonBounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
-  gameManager: {fileID: 0}
   ballonTransform: {fileID: 0}
   ballonSize: {x: 0, y: 0}
   shadowAnim: {fileID: 748953087}
@@ -3166,7 +3169,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.26872253, y: 385.13107}
+  m_Offset: {x: -2.4577866, y: 369.4779}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -3177,7 +3180,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 409.14145, y: 556.84235}
+  m_Size: {x: 391.84027, y: 525.536}
   m_EdgeRadius: 0
 --- !u!50 &1793098122
 Rigidbody2D:
@@ -3220,6 +3223,22 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!70 &1793098124
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1793098116}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 1.1908138, y: 401.6381}
+  m_Size: {x: 395.86508, y: 517.45404}
+  m_Direction: 0
 --- !u!1 &1855106396
 GameObject:
   m_ObjectHideFlags: 0
@@ -3626,6 +3645,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   customSpeed: 0
+  _item: {fileID: 0}
   autoDestory: 0
   targetY: -100
 --- !u!225 &2004503229
