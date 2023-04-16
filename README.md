@@ -35,7 +35,7 @@ No ads, no payments, no bothersome.
 
 ## Contribution
 
--   [ ] Day and night
+-   [x] Day and night
 -   [ ] More fun items
 -   [ ] More balloon skins.
 
