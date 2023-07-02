@@ -19,10 +19,13 @@ public class Player : MonoBehaviour
     public Animator shadowAnim;
     public float safeAreaHeight;
 
+    public float magnetRadius = 5f;
+
     [Title("Self Component")]
     private BoxCollider2D boxColider;
     private CapsuleCollider2D capsuleColider;
     private RectTransform rectTransform;
+    private BuffManager buffManager;
 
     void Awake()
     {
@@ -33,6 +36,8 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+        buffManager = GetComponent<BuffManager>();
+
         gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 315, 0);
 
         Animator ballonerAnim = gameObject.GetComponent<Animator>();
@@ -54,7 +59,44 @@ public class Player : MonoBehaviour
                 CheckCollectableItems();
                 break;
         }
+
+        if (buffManager.HasBuff("Magneting"))
+        {
+            AttractCoinsInRange();
+        }
     }
+
+    private void StopAttractingCoins()
+    {
+        List<BoundedItem> queue = ItemManager.Instance?.ItemQueue.Where(i => i.self != null).ToList();
+        foreach (var item in queue)
+        {
+            if (item.itemType == ItemSet.Coin_1 || item.itemType == ItemSet.Coin_10)
+            {
+                var coin = item.self.GetComponent<CoinController>();
+                coin.StopAttract();
+            }
+        }
+    }
+
+
+    private void AttractCoinsInRange()
+    {
+        List<BoundedItem> queue = ItemManager.Instance?.ItemQueue.Where(i => i.self != null).ToList();
+        foreach (var item in queue)
+        {
+            if (item.itemType == ItemSet.Coin_1 || item.itemType == ItemSet.Coin_10)
+            {
+                Debug.Log(Vector2.Distance(transform.position, item.self.position));
+                if (Vector2.Distance(transform.position, item.self.position) < magnetRadius)
+                {
+                    var coin = item.self.GetComponent<CoinController>();
+                    coin.StartAttract();
+                }
+            }
+        }
+    }
+
 
     void CheckCollectableItems()
     {
@@ -67,6 +109,7 @@ public class Player : MonoBehaviour
         {
             var item = queue[i];
             var itemBound = item.CreateBounds();
+
             if (ballonBounds.Intersects(itemBound))
             {
                 if (PlayerPrefs.GetInt("EnableSound") == 1)
@@ -83,8 +126,7 @@ public class Player : MonoBehaviour
                         GameManager.Instance.UpdateScore(10);
                         break;
                     case ItemSet.Magnent:
-                        // TODO magnet effect
-                        Debug.Log("Get Magnet");
+                        buffManager.AddBuff(new Buff("Magneting", 10));
                         break;
                 }
 
