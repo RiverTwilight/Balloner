@@ -8,8 +8,9 @@ using Random = UnityEngine.Random;
 
 public class ItemManager : SingletonMonoBehavior<ItemManager>
 {
-    [Title("Prefabs")]
-    public GameObject Spite_Prefab;
+
+    [Title("Item Prefabs")]
+    public List<GameObject> Obstacle_Prefabs;
     public GameObject Cloud_Prefab;
     public GameObject Coin_Prefab;
     public GameObject Magnet_Prefab;
@@ -64,7 +65,7 @@ public class ItemManager : SingletonMonoBehavior<ItemManager>
         ItemQueue = new List<BoundedItem>();
 
         collectableSpawnFlow = new SyncItemFactory(SpawnCollectableItem, -6f);
-        spiteSpawnFlow = new SyncItemFactory(SpawnSpite, 0);
+        spiteSpawnFlow = new SyncItemFactory(SpawnObstacle, 0);
     }
 
     private void Update()
@@ -81,30 +82,32 @@ public class ItemManager : SingletonMonoBehavior<ItemManager>
     }
 
     [Button]
-    public async void SpawnSpite()
+    public async void SpawnObstacle()
     {
         float randomX = Random.Range(0, screenWidth);
 
-        var spiteObj = Instantiate(Spite_Prefab, new Vector3(randomX, 3000, 0), Quaternion.identity, SpiteContainer.transform);
+        int randomIndex = Random.Range(0, Obstacle_Prefabs.Count);
+
+        var spiteObj = Instantiate(Obstacle_Prefabs[randomIndex], new Vector3(randomX, 3000, 0), Quaternion.identity, SpiteContainer.transform);
 
         await UniTask.DelayFrame(0);
 
-        var _spiteObj = spiteObj.GetComponent<SpliteGenerator>();
+        var _spiteObj = spiteObj.GetComponent<MoveableItem>();
 
         if (_spiteObj == null)
         {
             return;
         }
 
-        var originalDestory = _spiteObj.spitePosition.handleDestory;
+        var originalDestory = _spiteObj._item.handleDestory;
 
-        _spiteObj.spitePosition.handleDestory = () =>
+        _spiteObj._item.handleDestory = () =>
         {
             originalDestory();
             SpitesQueue.RemoveAt(0);
         };
 
-        SpitesQueue.Add(_spiteObj.spitePosition);
+        SpitesQueue.Add(_spiteObj._item);
     }
 
     [Button]

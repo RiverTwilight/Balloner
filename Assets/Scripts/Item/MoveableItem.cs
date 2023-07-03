@@ -8,7 +8,6 @@ public class MoveableItem : MonoBehaviour
     [ReadOnly] public float customSpeed = 0;
     public BoundedItem _item;
 
-
     public void Move()
     {
         var rectTransform = gameObject.GetComponent<RectTransform>();

@@ -41,7 +41,6 @@ public class CoinController : MoveableItem
     {
         if (attracted)
         {
-            Debug.Log("Being attarcting");
             Attract();
         }
         else {
@@ -61,7 +60,6 @@ public class CoinController : MoveableItem
         rectTransform.anchoredPosition += (Vector2)(direction * attractionSpeed * Time.deltaTime);
     }
 
-    // Call this method when the magnet effect finishes
     public void StopAttract()
     {
         attracted = false;

@@ -1278,7 +1278,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a71f04eb14514a6438c96af59bd4feba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Spite_Prefab: {fileID: 598970924790743705, guid: 56d3dd2f23d2fd3478c08dc431735878, type: 3}
+  Obstacle_Prefabs:
+  - {fileID: 932270834568111899, guid: 41201b624ba2a4650ba7a8c11f21839f, type: 3}
+  - {fileID: 598970924790743705, guid: 56d3dd2f23d2fd3478c08dc431735878, type: 3}
   Cloud_Prefab: {fileID: 8529101090127670617, guid: f823733856e3f6c4aab5b283aee95e1b, type: 3}
   Coin_Prefab: {fileID: 212498675229942584, guid: af147f12f1b79234d84e163141837e16, type: 3}
   Magnet_Prefab: {fileID: 2439213280594455538, guid: 28a6ba98c392f314fbef95f691baf286, type: 3}
@@ -2780,7 +2782,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1584000523}
   m_Layer: 5
-  m_Name: Spites
+  m_Name: Obstacles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
