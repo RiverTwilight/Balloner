@@ -13,7 +13,8 @@ public class GameStarter : MonoBehaviour
     public RectTransform Ballon;
     public RectTransform Ground;
     public RectTransform BallonShadow;
-    public RectTransform Mountain;
+    public RectTransform FarMountain;
+    public RectTransform NearMountain;
 
     [Title("In-game UI Objects")]
     public CanvasGroup Score;
@@ -24,7 +25,8 @@ public class GameStarter : MonoBehaviour
     [Title("Movement")]
     public float ballonLiftDelay;
     public float landDownDelay;
-    public float mountainDownDelay;
+    public float nearMountainDownDelay;
+    public float farMountainDownDelay;
 
     private bool shakeHintText = true;
 
@@ -34,7 +36,7 @@ public class GameStarter : MonoBehaviour
         {
             GameTrigger();
         });
-        ShakeHintText();
+        //ShakeHintText();
     }
 
     void Update()
@@ -53,8 +55,9 @@ public class GameStarter : MonoBehaviour
             Score.DOFade(1, 0.5f);
             Ballon.DOAnchorPosY(700, ballonLiftDelay).SetEase(Ease.InCubic);
             BallonShadow.DOScale(new Vector3(0, 0, 1), 3);
-            Ground.DOAnchorPosY(1000, landDownDelay).SetEase(Ease.InCubic);
-            Mountain.DOAnchorPosY(-1000, mountainDownDelay).SetEase(Ease.InCubic);
+            Ground.DOAnchorPosY(-1000, landDownDelay).SetEase(Ease.InCubic);
+            NearMountain.DOAnchorPosY(-1000, nearMountainDownDelay).SetEase(Ease.InCubic);
+            FarMountain.DOAnchorPosY(-1000, farMountainDownDelay).SetEase(Ease.InCubic);
 
             PauseButton.SetActive(true);
             shakeHintText = false;

@@ -40,4 +40,9 @@ public class MoveableItem : MonoBehaviour
     {
         Destroy(gameObject);
     }
+
+    private void FixedUpdate()
+    {
+        Move();
+    }
 }

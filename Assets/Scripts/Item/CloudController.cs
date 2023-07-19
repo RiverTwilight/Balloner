@@ -41,11 +41,6 @@ public class CloudController : MoveableItem
         }
     }
 
-    private void FixedUpdate()
-    {
-        Move();
-    }
-
     [Button]
     private void GenerateCloud()
     {

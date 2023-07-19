@@ -23,9 +23,4 @@ public class MagnetController : MoveableItem
     {
         _item.handleDestory();
     }
-    
-    private void FixedUpdate()
-    {
-        Move();
-    }
 }

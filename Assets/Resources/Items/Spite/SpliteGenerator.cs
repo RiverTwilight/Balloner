@@ -17,11 +17,6 @@ public class SpliteGenerator : MoveableItem
         GenerateGroup(spiteNum);
     }
 
-    private void FixedUpdate()
-    {
-        Move();
-    }
-
     public Transform CreateChild()
     {
         var obj = new GameObject();

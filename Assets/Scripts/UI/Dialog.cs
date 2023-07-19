@@ -9,29 +9,37 @@ public class Dialog : MonoBehaviour
     public Animator dialogAnimator;
     [HideLabel] public UnityEvent<string, bool> onDialogOpend;
 
+    public GameObject GameStarter;
 
     void Start()
     {
 
     }
 
-    public void openDialog()
+    public void OpenDialog()
     {
         show = true;
+        GameStarter.SetActive(false);
+        dialogAnimator.Play("OpenDialog", 0);
+    }
+
+    public void CloseDialog() {
+        Debug.Log("Close");
+        show = false;
+        GameStarter.SetActive(true);
+        dialogAnimator.Play("CloseDialog", 0);
     }
 
     [Button]
-    public void toggleDialog()
+    public void ToggleDialog()
     {
-        show = !show;
-
         if (show)
         {
-            dialogAnimator.Play("OpenDialog", 0);
+            CloseDialog();
         }
         else
         {
-            dialogAnimator.Play("CloseDialog", 0);
+            OpenDialog();
         }
     }
 
@@ -41,7 +49,7 @@ public class Dialog : MonoBehaviour
         {
             gameObject.SetActive(false);
 
-            show = false;
+            CloseDialog();
         }
     }
 }

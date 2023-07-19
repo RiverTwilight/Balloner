@@ -26,6 +26,7 @@ public class Player : MonoBehaviour
     private CapsuleCollider2D capsuleColider;
     private RectTransform rectTransform;
     private BuffManager buffManager;
+    public GameObject MagnentSlot;
 
     void Awake()
     {
@@ -62,7 +63,13 @@ public class Player : MonoBehaviour
 
         if (buffManager.HasBuff("Magneting"))
         {
+            MagnentSlot.SetActive(true);
             AttractCoinsInRange();
+        }
+        else
+        {
+            MagnentSlot.SetActive(false);
+            StopAttractingCoins();
         }
     }
 
@@ -78,7 +85,6 @@ public class Player : MonoBehaviour
             }
         }
     }
-
 
     private void AttractCoinsInRange()
     {

@@ -34,11 +34,11 @@ public class GameManager : SingletonMonoBehavior<GameManager>
         ItemManager = GetComponent<ItemManager>();
         if (SystemInfo.deviceType == DeviceType.Handheld)
         {
-            Application.targetFrameRate = 90;
+            Application.targetFrameRate = 75;
         }
         else
         {
-            Application.targetFrameRate = 300;
+            Application.targetFrameRate = 90;
         }
         highestRecord = PlayerPrefs.GetInt("HighestRecord");
     }
@@ -60,7 +60,7 @@ public class GameManager : SingletonMonoBehavior<GameManager>
                 if (timeStick > 1.0)
                 {
                     int intSpeed = (int)speed;
-                    currentHeight += intSpeed / 4;
+                    currentHeight += intSpeed / 2;
                     timeStick = 0;
                 }
                 UpdateSpeed();
@@ -78,6 +78,7 @@ public class GameManager : SingletonMonoBehavior<GameManager>
                 break;
         }
     }
+
     private void UpdateSpeed()
     {
         if (currentScore <= 10)
@@ -118,19 +119,9 @@ public class GameManager : SingletonMonoBehavior<GameManager>
         gameStatus = GameStatusSet.Initialized;
     }
 
-    async public void StartGame()
+    public void StartGame()
     {
         gameStatus = GameStatusSet.Playing;
-
-        await UniTask.Delay(500);
-
-        while (true)
-        {
-            ItemManager.SpawnCloud();
-            int randomDelay = Random.Range(3000, 4000);
-            randomDelay /= (int)speedIndex;
-            await UniTask.Delay(randomDelay);
-        }
     }
 
     public void ToggleStatus()
@@ -149,7 +140,7 @@ public class GameManager : SingletonMonoBehavior<GameManager>
 
     public void HandlePause()
     {
-        PauseMenu.GetComponent<Dialog>().toggleDialog();
+        PauseMenu.GetComponent<Dialog>().ToggleDialog();
     }
 
     public void HandleDeath()

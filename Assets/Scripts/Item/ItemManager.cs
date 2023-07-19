@@ -8,18 +8,24 @@ using Random = UnityEngine.Random;
 
 public class ItemManager : SingletonMonoBehavior<ItemManager>
 {
+    [System.Serializable]
+    public struct SpawnableItem
+    {
+        public GameObject prefab;
+        public int probability;
+    }
 
     [Title("Item Prefabs")]
     public List<GameObject> Obstacle_Prefabs;
     public GameObject Cloud_Prefab;
-    public GameObject Coin_Prefab;
-    public GameObject Magnet_Prefab;
+    public List<SpawnableItem> collectableItems;
 
     [Title("Device Specefication")]
-    public float screenWidth;
-    public float screenHeight;
-    public float safeScreenHeight;
+    [ShowInInspector] private float screenWidth;
+    [ShowInInspector] private float screenHeight;
+    [ShowInInspector] private float safeScreenHeight;
 
+    [Title("Containers")]
     public Transform Canvas;
     public GameObject FarCloudContainer;
     public GameObject NearCloudContainer;
@@ -28,12 +34,13 @@ public class ItemManager : SingletonMonoBehavior<ItemManager>
 
     private SyncItemFactory collectableSpawnFlow;
     private SyncItemFactory spiteSpawnFlow;
+    private SyncItemFactory cloudSpawnFlow;
     public List<BoundedItem> SpitesQueue;
     public List<BoundedItem> ItemQueue;
 
     public class SyncItemFactory
     {
-        private float coinSpawnStick = -3f;
+        private float spawnStick = -3f;
         public Action onSpawned;
         public float offset;
 
@@ -45,12 +52,12 @@ public class ItemManager : SingletonMonoBehavior<ItemManager>
 
         public void SpawnSyncItem(GameManager gameManager)
         {
-            coinSpawnStick += Time.deltaTime;
+            spawnStick += Time.deltaTime;
 
-            if (coinSpawnStick > (50f + offset) / gameManager.speed)
+            if (spawnStick > (45f + offset) / gameManager.speed)
             {
                 onSpawned?.Invoke();
-                coinSpawnStick = 0;
+                spawnStick = 0;
             }
         }
     }
@@ -66,6 +73,7 @@ public class ItemManager : SingletonMonoBehavior<ItemManager>
 
         collectableSpawnFlow = new SyncItemFactory(SpawnCollectableItem, -6f);
         spiteSpawnFlow = new SyncItemFactory(SpawnObstacle, 0);
+        cloudSpawnFlow = new SyncItemFactory(SpawnCloud, 2f);
     }
 
     private void Update()
@@ -77,6 +85,7 @@ public class ItemManager : SingletonMonoBehavior<ItemManager>
 
                 spiteSpawnFlow.SpawnSyncItem(gameManager);
                 collectableSpawnFlow.SpawnSyncItem(gameManager);
+                cloudSpawnFlow.SpawnSyncItem(gameManager);
                 break;
         }
     }
@@ -115,20 +124,33 @@ public class ItemManager : SingletonMonoBehavior<ItemManager>
     {
         float randomX = Random.Range(5, screenWidth - 5);
 
-        int randomIndex = Random.Range(0, 100);
-
-        MoveableItem _collectableObj;
-
-        if (randomIndex < 70)
+        // Calculating total probability
+        int totalProbability = 0;
+        foreach (var item in collectableItems)
         {
-            GameObject collectableObj = Instantiate(Coin_Prefab, new Vector3(randomX, 3000, 0), Quaternion.identity, CollectableItemContainer.transform) as GameObject ;
-             _collectableObj = collectableObj.GetComponent<CoinController>();
+            totalProbability += item.probability;
         }
-        else
+
+        int randomIndex = Random.Range(0, totalProbability);
+
+        GameObject collectableObj = null;
+        int currentSum = 0;
+        foreach (var item in collectableItems)
         {
-            GameObject collectableObj = Instantiate(Magnet_Prefab, new Vector3(randomX, 3000, 0), Quaternion.identity, CollectableItemContainer.transform) as GameObject ;
-             _collectableObj = collectableObj.GetComponent<MagnetController>();
+            currentSum += item.probability;
+            if (randomIndex < currentSum)
+            {
+                collectableObj = Instantiate(item.prefab, new Vector3(randomX, 3000, 0), Quaternion.identity, CollectableItemContainer.transform) as GameObject;
+                break;
+            }
         }
+
+        if (collectableObj == null)
+        {
+            return;
+        }
+
+        MoveableItem _collectableObj = collectableObj.GetComponent<MoveableItem>();
 
         await UniTask.DelayFrame(0);
 
@@ -149,6 +171,7 @@ public class ItemManager : SingletonMonoBehavior<ItemManager>
             originalDestory();
         };
     }
+
     [Button]
     public void SpawnCloud()
     {

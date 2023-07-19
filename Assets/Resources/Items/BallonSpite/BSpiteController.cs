@@ -27,11 +27,6 @@ public class BSpiteController : MoveableItem
         }
     }
 
-    private void FixedUpdate()
-    {
-        Move();
-    }
-
     new public void HandleDestory()
     {
         _item.handleDestory();

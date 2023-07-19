@@ -32,20 +32,14 @@ public class CoinController : MoveableItem
         _item.handleDestory();
     }
 
-    private void Update()
-    {
-
-    }
-
     private void FixedUpdate()
     {
         if (attracted)
         {
             Attract();
         }
-        else {
-            Move();
-        }
+
+        Move();
     }
 
     public void StartAttract()
