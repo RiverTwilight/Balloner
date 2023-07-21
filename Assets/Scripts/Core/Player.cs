@@ -57,6 +57,9 @@ public class Player : MonoBehaviour
         List<BoundedItem> itemQueue = ItemManager.Instance?.ItemQueue.Where(i => i.self != null).ToList();
         List<BoundedItem> obstacleQueue = ItemManager.Instance?.SpitesQueue.Where(i => i.self != null).ToList();
 
+        ballonBounds = new Bounds(boxColider.bounds.center, boxColider.bounds.size);
+        personBounds = new Bounds(personBoxColider.bounds.center, personBoxColider.bounds.size);
+
         switch (GameManager.Instance.gameStatus)
         {
             case GameStatusSet.Playing:
@@ -109,8 +112,6 @@ public class Player : MonoBehaviour
 
     void CheckCollectableItems(List<BoundedItem> queue)
     {
-        ballonBounds = new Bounds(boxColider.bounds.center, boxColider.bounds.size);
-
         int queueLength = queue.ToArray().Length;
 
         for (int i = 0; i < queueLength; i++)
@@ -118,7 +119,7 @@ public class Player : MonoBehaviour
             var item = queue[i];
             var itemBound = item.CreateBounds();
 
-            if (ballonBounds.Intersects(itemBound))
+            if (ballonBounds.Intersects(itemBound) || personBounds.Intersects(itemBound))
             {
                 if (PlayerPrefs.GetInt("EnableSound") == 1)
                 {
@@ -149,8 +150,6 @@ public class Player : MonoBehaviour
 
     void CheckCollidation(List<BoundedItem> queue)
     {
-        ballonBounds = new Bounds(boxColider.bounds.center, boxColider.bounds.size);
-        personBounds = new Bounds(personBoxColider.bounds.center, personBoxColider.bounds.size);
 
         //Debug.Log($"Ballon [center: {ballonBounds.center} size: {ballonBounds.size}]");
 

@@ -98,7 +98,7 @@ public class GameManager : SingletonMonoBehavior<GameManager>
         {
             SpeedUp(speed_mid);
         }
-        else if (currentScore > 80 && speedIndex < speed_fast)
+        else if (currentScore > 80 && speedIndex < speed_fast && !isLevelChanging)
         {
             SpeedUp(speed_fast);
         }

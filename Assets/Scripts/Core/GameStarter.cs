@@ -55,7 +55,10 @@ public class GameStarter : MonoBehaviour
             Score.DOFade(1, 0.5f);
             Ballon.DOAnchorPosY(700, ballonLiftDelay).SetEase(Ease.InCubic);
             BallonShadow.DOScale(new Vector3(0, 0, 1), 3);
+
+            BallonShadow.DOAnchorPosY(-1000, landDownDelay).SetEase(Ease.InCubic);
             Ground.DOAnchorPosY(-1000, landDownDelay).SetEase(Ease.InCubic);
+
             NearMountain.DOAnchorPosY(-1000, nearMountainDownDelay).SetEase(Ease.InCubic);
             FarMountain.DOAnchorPosY(-1000, farMountainDownDelay).SetEase(Ease.InCubic);
 
