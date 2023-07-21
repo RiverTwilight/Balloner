@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Sirenix.OdinInspector;
 using Cysharp.Threading.Tasks;
+using UnityEngine.SceneManagement;
 
 public class GameManager : SingletonMonoBehavior<GameManager>
 {
@@ -28,6 +29,8 @@ public class GameManager : SingletonMonoBehavior<GameManager>
     private float timeStick;
 
     public GameObject PauseMenu;
+    public GameObject DeathPanel;
+    public GameOverText DeathPanelText;
 
     void Start()
     {
@@ -151,6 +154,13 @@ public class GameManager : SingletonMonoBehavior<GameManager>
             Debug.Log("New Records");
             PlayerPrefs.SetInt("HighestRecord", currentScore);
         }
+        ToggleStatus();
+        DeathPanelText.GetComponent<GameOverText>().Shuffle();
+        DeathPanel.SetActive(true);
+    }
+
+    public void Retry() {
         ResetGame();
+        SceneManager.LoadScene("Main");
     }
 }

@@ -50,7 +50,6 @@ public class Player : MonoBehaviour
         safeAreaHeight = Screen.height * 0.9f;
     }
 
-
     void FixedUpdate()
     {
         List<BoundedItem> itemQueue = ItemManager.Instance?.ItemQueue.Where(i => i.self != null).ToList();
@@ -164,10 +163,8 @@ public class Player : MonoBehaviour
                 Debug.Log("Colided");
                 AudioManager.StopBackgroundMusic();
                 GameManager.Instance.HandleDeath();
-                GameManager.Instance.ResetGame();
                 ItemManager.Instance.SpitesQueue.Clear();
                 ItemManager.Instance.ItemQueue.Clear();
-                SceneManager.LoadScene("Main");
             }
         });
     }

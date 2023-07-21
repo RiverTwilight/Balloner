@@ -31,6 +31,7 @@ public class TimeManager : MonoBehaviour
     public Image SkyBackContainer;
     public Image DayCloudSea;
     public Image NightCloudSea;
+    public Image Moon;
     public GameObject NearCloudsea;
     public GameObject StarSky;
 
@@ -115,6 +116,7 @@ public class TimeManager : MonoBehaviour
 
     private void GenerateStarsky()
     {
+        Moon.DOFade(1, 4f);
         foreach (GameObject star in starPool)
         {
             star.GetComponent<StarController>().ShuffleSelfPostion();
@@ -124,6 +126,7 @@ public class TimeManager : MonoBehaviour
 
     private void ClearStarsky()
     {
+        Moon.DOFade(0, 4f);
         foreach (GameObject star in starPool)
         {
             star.SetActive(false);

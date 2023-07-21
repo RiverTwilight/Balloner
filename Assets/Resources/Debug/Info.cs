@@ -12,6 +12,10 @@ public class Info : MonoBehaviour
     private void Start()
     {
         deltaTime = 0f;
+
+        if (PlayerPrefs.GetInt("Developer") != 1) {
+            gameObject.SetActive(false);
+        }
     }
 
     private void Update()
