@@ -21,7 +21,17 @@ public class SecretCodeCheck : MonoBehaviour, IPointerDownHandler, IPointerUpHan
 
             if (shortPressCount == 2)
             {
-                PlayerPrefs.SetInt("Developer", 1);
+                int currentPrefs = PlayerPrefs.GetInt("Developer");
+
+                if (currentPrefs != 1)
+                {
+                    PlayerPrefs.SetInt("Developer", 1);
+                }
+                else
+                {
+                    PlayerPrefs.SetInt("Developer", 0);
+                }
+
                 PlayerPrefs.Save();
 
                 longPressDetected = false;

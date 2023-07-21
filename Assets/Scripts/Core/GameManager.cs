@@ -28,9 +28,14 @@ public class GameManager : SingletonMonoBehavior<GameManager>
 
     private float timeStick;
 
+    [Title("UI")]
     public GameObject PauseMenu;
     public GameObject DeathPanel;
     public GameOverText DeathPanelText;
+    public Image PauseButton;
+
+    public Sprite PlaySprite;
+    public Sprite PauseSprite;
 
     void Start()
     {
@@ -131,11 +136,13 @@ public class GameManager : SingletonMonoBehavior<GameManager>
     {
         if (gameStatus == GameStatusSet.Playing)
         {
+            PauseButton.sprite = PlaySprite;
             gameStatus = GameStatusSet.Paused;
             Time.timeScale = 0f;
         }
         else
         {
+            PauseButton.sprite = PauseSprite;
             Time.timeScale = 1f;
             gameStatus = GameStatusSet.Playing;
         }
