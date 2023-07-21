@@ -24,14 +24,14 @@ public class TimeManager : MonoBehaviour
     public int switchInterval = 100;
     public int currentHeight;
     public int cloudseaHeight;
-
     public GameManager gameManager;
+
+    [Title("Game Objects")]
     public Image SkyContainer;
     public Image SkyBackContainer;
     public Image DayCloudSea;
     public Image NightCloudSea;
     public GameObject NearCloudsea;
-
     public GameObject StarSky;
 
     public GameObject Star_Prefab;
@@ -41,19 +41,25 @@ public class TimeManager : MonoBehaviour
     public Sprite NightSky;
 
     private Dictionary<SkyType, Sprite> skySprites = new Dictionary<SkyType, Sprite>();
-    private SkyType currentSkyType;
     [ReadOnly] public bool dayNightCycleStarted = false;
+
+    public int starPoolSize = 7;
+    private List<GameObject> starPool;
+    private CanvasGroup dayCloudSeaCanvasGroup;
+    private CanvasGroup nightCloudSeaCanvasGroup;
     void Awake()
     {
         gameManager = gameObject.GetComponent<GameManager>();
 
-        currentSkyType = SkyType.LowDaySky;
-
         skySprites[SkyType.DaySky] = DaySky;
         skySprites[SkyType.LowDaySky] = LowDaySky;
         skySprites[SkyType.NightSky] = NightSky;
+
+        dayCloudSeaCanvasGroup = DayCloudSea.GetComponent<CanvasGroup>();
+        nightCloudSeaCanvasGroup = NightCloudSea.GetComponent<CanvasGroup>();
     }
-    void Update()
+
+    void FixedUpdate()
     {
         currentHeight = gameManager.currentHeight;
 
@@ -70,11 +76,23 @@ public class TimeManager : MonoBehaviour
             dayNightCycleStarted = true;
         }
     }
+
+    void Start()
+    {
+        starPool = new List<GameObject>();
+
+        for (int i = 0; i < starPoolSize; i++)
+        {
+            GameObject star = Instantiate(Star_Prefab, StarSky.transform);
+            star.SetActive(false);
+            starPool.Add(star);
+        }
+    }
+
     private void TransitionSky(SkyType targetSky)
     {
-        float duration = 4f; // Set this to the duration you want for the transition
+        float duration = 4f;
 
-        // Copy the current sprite from the back container to the front container and set its alpha to 1
         SkyContainer.sprite = SkyBackContainer.sprite;
         Color frontColor = SkyContainer.color;
         frontColor.a = 1;
@@ -97,22 +115,22 @@ public class TimeManager : MonoBehaviour
 
     private void GenerateStarsky()
     {
-        int i = 0;
-        while (i < 7)
+        foreach (GameObject star in starPool)
         {
-            Instantiate(Star_Prefab, StarSky.transform);
-            i++;
+            star.GetComponent<StarController>().ShuffleSelfPostion();
+            star.SetActive(true);
         }
     }
+
     private void ClearStarsky()
     {
-        Transform starTransform = StarSky.transform;
-
-        foreach (Transform child in starTransform)
+        foreach (GameObject star in starPool)
         {
-            Destroy(child.gameObject);
+            star.SetActive(false);
         }
     }
+
+
     public void SwitchTime()
     {
         if (currentHeight <= switchInterval)
@@ -120,36 +138,41 @@ public class TimeManager : MonoBehaviour
             return;
         }
 
-        if (!switchLocked && currentHeight % switchInterval < switchInterval / 2)
+        if (!switchLocked)
         {
-            if (!isNight)
+            if (currentHeight % switchInterval < switchInterval / 2)
             {
-                isNight = true;
-                ChangeSky(SkyType.NightSky);
-                GenerateStarsky();
-                EnableNightCloudSea();
+                if (!isNight)
+                {
+                    isNight = true;
+                    ChangeSky(SkyType.NightSky);
+                    GenerateStarsky();
+                    EnableNightCloudSea();
+                }
+
             }
-        }
-        else if (!switchLocked && currentHeight % switchInterval >= switchInterval / 2)
-        {
-            if (isNight)
+            else if (currentHeight % switchInterval >= switchInterval / 2)
             {
-                isNight = false;
-                ChangeSky(SkyType.DaySky);
-                EnableDayCloudSea();
-                ClearStarsky();
+                if (isNight)
+                {
+                    isNight = false;
+                    ChangeSky(SkyType.DaySky);
+                    EnableDayCloudSea();
+                    ClearStarsky();
+                }
             }
         }
     }
 
     public void EnableDayCloudSea()
     {
-        NightCloudSea.GetComponent<CanvasGroup>().DOFade(0, 5f);
-        DayCloudSea.GetComponent<CanvasGroup>().DOFade(1, 8f);
+        nightCloudSeaCanvasGroup.DOFade(0, 5f);
+        dayCloudSeaCanvasGroup.DOFade(1, 8f);
     }
+
     public void EnableNightCloudSea()
     {
-        DayCloudSea.GetComponent<CanvasGroup>().DOFade(0, 5f);
-        NightCloudSea.GetComponent<CanvasGroup>().DOFade(1, 8f);
+        dayCloudSeaCanvasGroup.DOFade(0, 5f);
+        nightCloudSeaCanvasGroup.DOFade(1, 8f);
     }
 }

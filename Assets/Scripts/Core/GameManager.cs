@@ -45,7 +45,7 @@ public class GameManager : SingletonMonoBehavior<GameManager>
 
     void Update()
     {
-        CurrentScoreComp.text = (currentScore > highestRecord ? "Highest: " : "Score: ") + currentScore;
+        CurrentScoreComp.text = (currentScore > highestRecord ? "New Record - " : "") + currentScore;
 
         switch (gameStatus)
         {

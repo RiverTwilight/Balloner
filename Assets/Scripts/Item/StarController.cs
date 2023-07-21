@@ -10,6 +10,7 @@ public class StarController : MonoBehaviour
 {
     public List<Sprite> starImages;
     private CanvasGroup canvasGroup;
+    private RectTransform rectTransform;
 
     [Button]
     void Start()
@@ -18,16 +19,22 @@ public class StarController : MonoBehaviour
 
         gameObject.GetComponent<Image>().sprite = starImages[index];
 
-        var parentSize = transform.parent.gameObject.GetComponent<RectTransform>().rect.size;
+        //rectTransform = gameObject.GetComponent<RectTransform>();
 
-        var randomPosY = Random.Range(10, parentSize.y);
-        var randomPosX = Random.Range(10,parentSize.x);
-
-        gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(randomPosX, randomPosY, 0);
+        ShuffleSelfPostion();
 
         canvasGroup = gameObject.GetComponent<CanvasGroup>();
 
         Twinkle();
+    }
+
+    public void ShuffleSelfPostion() {
+        var parentSize = transform.parent.gameObject.GetComponent<RectTransform>().rect.size;
+
+        var randomPosY = Random.Range(10, parentSize.y);
+        var randomPosX = Random.Range(10, parentSize.x);
+
+        GetComponent<RectTransform>().anchoredPosition = new Vector3(randomPosX, randomPosY, 0);
     }
 
     async public void Twinkle()

@@ -11,6 +11,7 @@ public class CoinController : MoveableItem
     private Player player;
     private bool attracted = false;
     public float attractionSpeed = 5f;
+    private RectTransform rectTransform;
 
     private void Start()
     {
@@ -25,6 +26,8 @@ public class CoinController : MoveableItem
 
         animator.speed = 0.5f;
         animator.Play("Coin");
+
+        rectTransform = GetComponent<RectTransform>();
     }
 
     new public void HandleDestory()
@@ -50,7 +53,6 @@ public class CoinController : MoveableItem
     private void Attract()
     {
         var direction = (player.transform.position - transform.position).normalized;
-        var rectTransform = GetComponent<RectTransform>();
         rectTransform.anchoredPosition += (Vector2)(direction * attractionSpeed * Time.deltaTime);
     }
 

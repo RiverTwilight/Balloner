@@ -50,32 +50,35 @@ public class Player : MonoBehaviour
         safeAreaHeight = Screen.height * 0.9f;
     }
 
-    void Update()
+
+    void FixedUpdate()
     {
+        List<BoundedItem> itemQueue = ItemManager.Instance?.ItemQueue.Where(i => i.self != null).ToList();
+        List<BoundedItem> obstacleQueue = ItemManager.Instance?.SpitesQueue.Where(i => i.self != null).ToList();
+
         switch (GameManager.Instance.gameStatus)
         {
             case GameStatusSet.Playing:
                 Movement();
-                CheckCollidation();
-                CheckCollectableItems();
+                CheckCollidation(obstacleQueue);
+                CheckCollectableItems(itemQueue);
                 break;
         }
 
         if (buffManager.HasBuff("Magneting"))
         {
             MagnentSlot.SetActive(true);
-            AttractCoinsInRange();
+            AttractCoinsInRange(itemQueue);
         }
         else
         {
             MagnentSlot.SetActive(false);
-            StopAttractingCoins();
+            StopAttractingCoins(itemQueue);
         }
     }
 
-    private void StopAttractingCoins()
+    private void StopAttractingCoins(List<BoundedItem> queue)
     {
-        List<BoundedItem> queue = ItemManager.Instance?.ItemQueue.Where(i => i.self != null).ToList();
         foreach (var item in queue)
         {
             if (item.itemType == ItemSet.Coin_1 || item.itemType == ItemSet.Coin_10)
@@ -86,9 +89,8 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void AttractCoinsInRange()
+    private void AttractCoinsInRange(List<BoundedItem> queue)
     {
-        List<BoundedItem> queue = ItemManager.Instance?.ItemQueue.Where(i => i.self != null).ToList();
         foreach (var item in queue)
         {
             if (item.itemType == ItemSet.Coin_1 || item.itemType == ItemSet.Coin_10)
@@ -104,11 +106,10 @@ public class Player : MonoBehaviour
     }
 
 
-    void CheckCollectableItems()
+    void CheckCollectableItems(List<BoundedItem> queue)
     {
         ballonBounds = new Bounds(boxColider.bounds.center, boxColider.bounds.size);
 
-        List<BoundedItem> queue = ItemManager.Instance?.ItemQueue.Where(i => i.self != null).ToList();
         int queueLength = queue.ToArray().Length;
 
         for (int i = 0; i < queueLength; i++)
@@ -145,13 +146,13 @@ public class Player : MonoBehaviour
         }
     }
 
-    void CheckCollidation()
+    void CheckCollidation(List<BoundedItem> queue)
     {
         ballonBounds = new Bounds(boxColider.bounds.center, boxColider.bounds.size);
 
         //Debug.Log($"Ballon [center: {ballonBounds.center} size: {ballonBounds.size}]");
 
-        List<BoundedItem> queue = ItemManager.Instance?.SpitesQueue.Where(i => i.self != null).ToList();
+        //List<BoundedItem> queue = ItemManager.Instance?.SpitesQueue.Where(i => i.self != null).ToList();
 
         queue.ForEach(spite =>
         {
