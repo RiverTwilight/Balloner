@@ -160,7 +160,8 @@ public class GameManager : SingletonMonoBehavior<GameManager>
     }
 
     public void Retry() {
-        ResetGame();
         SceneManager.LoadScene("Main");
+        ResetGame();
+        ToggleStatus();
     }
 }
