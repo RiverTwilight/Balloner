@@ -25,6 +25,7 @@ public class GameManager : SingletonMonoBehavior<GameManager>
     public int currentScore;
     public int currentHeight;
     public int highestRecord;
+    private bool isDead = false;
 
     private float timeStick;
 
@@ -134,18 +135,21 @@ public class GameManager : SingletonMonoBehavior<GameManager>
 
     public void ToggleStatus()
     {
-        if (gameStatus == GameStatusSet.Playing)
-        {
-            PauseButton.sprite = PlaySprite;
-            gameStatus = GameStatusSet.Paused;
-            Time.timeScale = 0f;
-        }
-        else
-        {
-            PauseButton.sprite = PauseSprite;
-            Time.timeScale = 1f;
-            gameStatus = GameStatusSet.Playing;
-        }
+
+            if (gameStatus == GameStatusSet.Playing)
+            {
+                PauseButton.sprite = PlaySprite;
+                gameStatus = GameStatusSet.Paused;
+                Time.timeScale = 0f;
+            }
+            else
+            {
+                PauseButton.sprite = PauseSprite;
+                Time.timeScale = 1f;
+                gameStatus = GameStatusSet.Playing;
+            }
+        
+
     }
 
     public void HandlePause()
@@ -155,18 +159,20 @@ public class GameManager : SingletonMonoBehavior<GameManager>
 
     public void HandleDeath()
     {
+        ToggleStatus();
+        PauseButton.transform.parent.gameObject.SetActive(false);
         int originalRecord = PlayerPrefs.GetInt("HighestRecord");
         if (currentScore > originalRecord)
         {
             Debug.Log("New Records");
             PlayerPrefs.SetInt("HighestRecord", currentScore);
         }
-        ToggleStatus();
         DeathPanelText.GetComponent<GameOverText>().Shuffle();
         DeathPanel.SetActive(true);
     }
 
-    public void Retry() {
+    public void Retry()
+    {
         SceneManager.LoadScene("Main");
         ResetGame();
         ToggleStatus();
