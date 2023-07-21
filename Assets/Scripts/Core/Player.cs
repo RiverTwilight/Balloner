@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
 
     public GameObject ballon;
     public Bounds ballonBounds;
+    public Bounds personBounds;
     public RectTransform ballonTransform;
     public Vector2 ballonSize;
     public Animator shadowAnim;
@@ -22,6 +23,7 @@ public class Player : MonoBehaviour
     public float magnetRadius = 5f;
 
     [Title("Self Component")]
+    public BoxCollider2D personBoxColider;
     private BoxCollider2D boxColider;
     private CapsuleCollider2D capsuleColider;
     private RectTransform rectTransform;
@@ -148,6 +150,7 @@ public class Player : MonoBehaviour
     void CheckCollidation(List<BoundedItem> queue)
     {
         ballonBounds = new Bounds(boxColider.bounds.center, boxColider.bounds.size);
+        personBounds = new Bounds(personBoxColider.bounds.center, personBoxColider.bounds.size);
 
         //Debug.Log($"Ballon [center: {ballonBounds.center} size: {ballonBounds.size}]");
 
@@ -158,7 +161,7 @@ public class Player : MonoBehaviour
             var spiteBounds = spite.CreateBounds();
             // Debug.Log($"Ballon Position: {boxColider.bounds.center}");
             // Debug.Log($"[center: {spiteBounds.center} size: {spiteBounds.size}]");
-            if (ballonBounds.Intersects(spiteBounds))
+            if (ballonBounds.Intersects(spiteBounds) || personBounds.Intersects(spiteBounds))
             {
                 Debug.Log("Colided");
                 AudioManager.StopBackgroundMusic();
