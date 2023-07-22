@@ -35,9 +35,16 @@ No ads, no payments, no bothersome.
 
 ## Contribution
 
--   [x] Day and night
+You can get start from these ideas:
+
 -   [ ] More fun items
 -   [ ] More balloon skins.
+-   [ ] More sky and startup scene.
+-   [ ] Any imagnation.
+
+It's recommended to use Unity 2022.3.4f1 to open this project.
+
+You can download the editor and component installer [here](https://unity.com/releases/editor/whats-new/2022.3.4).
 
 ## About
 
@@ -45,4 +52,4 @@ This the first game created by myself. I love create awesome stuffs and hope you
 
 ## License
 
-MIT
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>.

@@ -136,7 +136,9 @@ PlayerSettings:
   vulkanEnableCommandBufferRecycling: 1
   loadStoreDebugModeEnabled: 0
   bundleVersion: 1.1.4
-  preloadedAssets: []
+  preloadedAssets:
+  - {fileID: 1110821693598526555, guid: 0525bb480622d9840b4dc21aa9c958c6, type: 2}
+  - {fileID: 11400000, guid: 01128cb6a9947b04b990af5dd354a929, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -261,8 +263,8 @@ PlayerSettings:
   AndroidTargetDevices: 0
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: '{dedicated}: Desktop/user.keystore'
-  AndroidKeyaliasName: test
+  AndroidKeystoreName: /Users/rivertwilight/Desktop/Developer/RiverTwilight.keystore
+  AndroidKeyaliasName: 
   AndroidEnableArmv9SecurityFeatures: 0
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 0
