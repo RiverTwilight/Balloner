@@ -12,19 +12,10 @@
   🎈 A fun, tiny, and rougelike game created with Unity. | 流浪气球：无尽探索小游戏
 </p>
 
+
 <p align="center">
-    Download on
-    <a href="#">
-     Android
-    </a>
-    |
-    <a href="#">
-     iOS
-    </a>
-    |
-    <a href="#">
-     Windows
-    </a>
+  <a href="https://play.google.com/store/apps/details?id=com.rivertwilight.balloner&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1" target="_blank"><img alt="Get it on Google Play" src="https://imgur.com/YQzmZi9.png" width="153" height="46"></a>
+  <a href="https://apps.apple.com/us/app/balloner/id6451463616" target="_blank"><img src="https://imgur.com/GdGqPMY.png" width="154" height="45"></a>
 </p>
 
 ## How to Play
